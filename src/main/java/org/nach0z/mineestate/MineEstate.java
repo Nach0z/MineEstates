@@ -1,3 +1,4 @@
+package org.nach0z.mineestate;
 import com.sk89q.worldguard.*;
 import com.sk89q.worldguard.bukkit.*;
 import com.sk89q.worldguard.protection.*;
@@ -12,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class MineEstate extends JavaPlugin implements Listener {
     public Plugin got_plugin;
+    public Flag<Double> tester = new DoubleFlag("testing");
     public DoubleFlag tflag = new DoubleFlag("tflag");
     public WorldGuardPlugin worldguard_plugin;
 	public ProtectedRegion testreg;
