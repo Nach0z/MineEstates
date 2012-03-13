@@ -10,12 +10,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import java.util.*;
 
 public class MineEstatePlugin extends JavaPlugin implements Listener{
     public Flag<Double> tester = new DoubleFlag("testing");
-//    public DoubleFlag tflag = new DoubleFlag("tflag");
     public DoubleFlag tflag = DefaultFlag.PRICE;
-	private WorldGuardPlugin worldguard_plugin;
+    private WorldGuardPlugin worldguard_plugin;
+    private ArrayList<String> available;
+    public MySqlConnector db;
     public final WorldGuardPlugin WORLDGUARD = worldguard_plugin;
 	public ProtectedRegion testreg;
 	public void onDisable() {
@@ -31,6 +33,9 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 		worldguard_plugin = (WorldGuardPlugin) got_plugin;
 	EstateCommandExecutor cmd = new EstateCommandExecutor(this);
 	getCommand("estates").setExecutor(cmd);
+
+	db = new MySqlConnector();
+	available = db.getAvailable();
     }
 
 }
