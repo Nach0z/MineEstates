@@ -5,7 +5,7 @@ description: "Like Towny. allows purchase/sharing/selling of plots.\r\nPlanned: 
 generator: http://dinnerbone.com/minecraft/tools/pluginator/
 main: org.nach0z.mineestate.MineEstatePlugin
 name: MineEstate
-depend: [WorldGuard]
+depend: [WorldGuard,Vault]
 startup: postworld
 version: '1.0'
 commands:
