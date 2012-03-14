@@ -14,6 +14,7 @@ public class MySqlConnector {
 	private YAMLProcessor wg_config;
 	private MineEstatePlugin _plugin;
 	private Connection conn;
+	private Statement stmt;
 
 	public MySqlConnector(MineEstatePlugin plugin, YAMLProcessor _wg_config) {
 		_plugin = plugin;
@@ -23,10 +24,16 @@ public class MySqlConnector {
 		} catch (Exception e) {
 			System.out.println("[FATAL ERROR] MineEstates failed to connect to the WorldGuard MySQL database! MineEstates WILL NOT WORK");
 		}
+		createTables();
 	}
 
 	public ArrayList<String> getAvailable() {
 	return new ArrayList<String>();
+	}
+
+	public void createTables() {
+
+	
 	}
 
 }
