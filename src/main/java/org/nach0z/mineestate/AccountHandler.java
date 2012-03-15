@@ -9,11 +9,16 @@ import net.milkbowl.vault.permission.Permission;
 
 public class AccountHandler {
 	public static Economy econ = null;
+	public Vault vault = null;
 	public static Permission perms = null;
 	private MineEstatePlugin _plugin;
 	public AccountHandler(MineEstatePlugin plugin) {
 		_plugin = plugin;
+		if(_plugin.getServer().getPluginManager().getPlugin("Vault") instanceof Vault)
+			vault = (Vault) _plugin.getServer().getPluginManager().getPlugin("Vault");
 	}
 
+
+	
 
 }

@@ -11,10 +11,12 @@ import org.bukkit.command.*;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 public class EstateCommandExecutor implements CommandExecutor {
-	private MineEstatePlugin _plugin;
+	private MineEstatePlugin _plugin = null;
+	private AccountHandler accounts = null;
 	private String prefix = ChatColor.GREEN + "[Estates] " + ChatColor.GOLD;
 	EstateCommandExecutor(MineEstatePlugin plugin) {
 		_plugin=plugin;
+		accounts = new AccountHandler(_plugin);
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
