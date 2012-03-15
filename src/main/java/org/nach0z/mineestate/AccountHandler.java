@@ -14,23 +14,28 @@ public class AccountHandler {
 	private MineEstatePlugin _plugin;
 	public AccountHandler(MineEstatePlugin plugin) {
 		_plugin = plugin;
-		if(_plugin.getServer().getPluginManager().getPlugin("Vault") instanceof Vault)
-			vault = (Vault) _plugin.getServer().getPluginManager().getPlugin("Vault");
-		econ = _plugin.getServer().getServicesManager().getRegistration(Economy.class).getProvider();
+		Plugin tmpvlt = Bukkit.getServer().getPluginManager().getPlugin("Vault");
+		if(tmpvlt instanceof Vault)
+			vault = (Vault) Bukkit.getServer().getPluginManager().getPlugin("Vault");
+		econ = Bukkit.getServer().getServicesManager().getRegistration(Economy.class).getProvider();
 
 	}
 
 
 	public boolean hasFunds(String playerName, double amount) {
 	double bal = econ.getBalance(playerName);
-	return (Double.compare(bal, amount) >= 0);
+		return (Double.compare(bal, amount) >= 0);
 
 	}
 
 	public boolean chargeMoney(String playerName, double amount) {
-	return econ.withdrawPlayer(playerName, amount).transactionSuccess();
+		return econ.withdrawPlayer(playerName, amount).transactionSuccess();
 	
 
+	}
+
+	public boolean addMoney(String playerName, double amount) {
+		return econ.depositPlayer(playerName, amount).transactionSuccess();
 	}
 
 }

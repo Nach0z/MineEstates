@@ -11,12 +11,14 @@ import org.bukkit.command.*;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 public class EstateCommandExecutor implements CommandExecutor {
+	private RegionFlagManager regions = null;
 	private MineEstatePlugin _plugin = null;
 	private AccountHandler accounts = null;
 	private String prefix = ChatColor.GREEN + "[Estates] " + ChatColor.GOLD;
 	EstateCommandExecutor(MineEstatePlugin plugin) {
 		_plugin=plugin;
 		accounts = new AccountHandler(_plugin);
+		regions = new RegionFlagManager(_plugin);
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -42,6 +44,14 @@ public class EstateCommandExecutor implements CommandExecutor {
 		String message = getSales(owner, price, size);
 		sender.sendMessage(prefix + message);
 		return true;
+		} else if (args[0].equalsIgnoreCase("buy")) {
+			if(args[1] != null && regions.existsRegion(args[1])) {
+				if(!accounts.hasFunds(player.getName(), regions.getRegionPrice(args[1])))
+					sender.sendMessage(prefix + "You don't have enough funds to purchase this region!");
+				else {
+					regions.transferOwnership(args[1], player.getName());
+				}
+			}
 		}
 
 
