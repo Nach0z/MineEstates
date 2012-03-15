@@ -16,9 +16,15 @@ public class AccountHandler {
 		_plugin = plugin;
 		if(_plugin.getServer().getPluginManager().getPlugin("Vault") instanceof Vault)
 			vault = (Vault) _plugin.getServer().getPluginManager().getPlugin("Vault");
+		econ = _plugin.getServer().getServicesManager().getRegistration(Economy.class).getProvider();
+
 	}
 
 
-	
+	public boolean hasFunds(String playerName, double amount) {
+	double bal = econ.getBalance(playerName);
+	return (Double.compare(bal, amount) >= 0);
+
+	}
 
 }
