@@ -46,7 +46,7 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 	else
 		System.out.println("Not a WorldGuardPlugin!");
 	if(!setupEcon()) {
-		System.out.println("[FATAL ERROR] MineEdit requires Vault to be installed to interface with the economy! Please install Vault");
+		System.out.println("[FATAL ERROR] MineEdit requires Vault and a Vault-compatible Economy plugin to be installed to interface with the economy! Please install Vault");
 		getServer().getPluginManager().disablePlugin(this);
 		return;
 
