@@ -41,4 +41,12 @@ public class AccountHandler {
 		return econ.depositPlayer(playerName, amount).transactionSuccess();
 	}
 
+	public String getUnitsPlural() {
+		return econ.currencyNamePlural();
+	}
+
+	public String getUnitsSingular() {
+		return econ.currencyNameSingular();
+	}
+
 }

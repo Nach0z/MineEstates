@@ -46,10 +46,17 @@ public class EstateCommandExecutor implements CommandExecutor {
 		return true;
 		} else if (args[0].equalsIgnoreCase("buy")) {
 			if(args[1] != null && regions.existsRegion(args[1]) && Double.compare(regions.getRegionPrice(args[1]), 0) > 0 ) {
-				if(!accounts.hasFunds(player.getName(), regions.getRegionPrice(args[1])))
+				double regPrice = regions.getRegionPrice(args[1]);
+				if(!accounts.hasFunds(player.getName(), regPrice))
 					sender.sendMessage(prefix + "You don't have enough funds to purchase this region!");
 				else {
-					regions.transferOwnership(args[1], player.getName());
+					if(regions.transferOwnership(args[1], player.getName())) {
+						sender.sendMessage(prefix + "You have successfully purchased "+args[1]+" for " + price + accounts.getUnitsPlural());
+						return true;
+					} else {
+						sender.sendMessage(prefix + "The purchase has failed. This may be because the region has multiple owners, or because of an internal error. Please talk to your server admin.");
+						return false;
+					}
 				}
 			}
 		}
