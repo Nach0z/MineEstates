@@ -27,4 +27,10 @@ public class AccountHandler {
 
 	}
 
+	public boolean chargeMoney(String playerName, double amount) {
+	return econ.withdrawPlayer(playerName, amount).transactionSuccess();
+	
+
+	}
+
 }
