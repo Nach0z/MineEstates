@@ -45,7 +45,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 		sender.sendMessage(prefix + message);
 		return true;
 		} else if (args[0].equalsIgnoreCase("buy")) {
-			if(args[1] != null && regions.existsRegion(args[1])) {
+			if(args[1] != null && regions.existsRegion(args[1]) && Double.compare(regions.getRegionPrice(args[1]), 0) > 0 ) {
 				if(!accounts.hasFunds(player.getName(), regions.getRegionPrice(args[1])))
 					sender.sendMessage(prefix + "You don't have enough funds to purchase this region!");
 				else {

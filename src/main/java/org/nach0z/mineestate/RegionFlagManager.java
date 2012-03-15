@@ -30,8 +30,10 @@ public class RegionFlagManager {
 	World world = Bukkit.getServer().getWorld("world");
 	ProtectedRegion testreg = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 	Double price = testreg.getFlag(tflag);
-	System.out.println(price + " = price");
-	return price;
+	if(price != null)
+		return price;
+	else
+		return -1;
     }
 
     public String getOwnerName(String regionName) {
@@ -83,6 +85,11 @@ public class RegionFlagManager {
 		}
 		_plugin.WORLDGUARD.getGlobalRegionManager().get(world).removeRegion(regionName);
 		_plugin.WORLDGUARD.getGlobalRegionManager().get(world).addRegion(target);
+		try {
+			_plugin.WORLDGUARD.getGlobalRegionManager().get(world).save();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 
 		ret = true;
 		return ret;

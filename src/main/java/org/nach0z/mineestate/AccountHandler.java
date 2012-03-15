@@ -23,6 +23,9 @@ public class AccountHandler {
 
 
 	public boolean hasFunds(String playerName, double amount) {
+	if(!econ.hasAccount(playerName))
+		econ.createBank(playerName,playerName);
+
 	double bal = econ.getBalance(playerName);
 		return (Double.compare(bal, amount) >= 0);
 
