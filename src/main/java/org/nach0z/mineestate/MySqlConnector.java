@@ -10,7 +10,7 @@ import org.bukkit.configuration.file.*;
 import com.sk89q.util.yaml.YAMLProcessor;
 import com.sk89q.util.yaml.YAMLFormat;
 
-public class MySqlConnector {
+public class MySqlConnector implements DBConnector {
 	private YAMLProcessor wg_config;
 	private MineEstatePlugin _plugin;
 	private Connection conn;
@@ -31,9 +31,24 @@ public class MySqlConnector {
 	return new ArrayList<String>();
 	}
 
-	public void createTables() {
+	public boolean addForSale(String name, double price) {
+		return true;
+	}
 
-	
+	public boolean addForRent(String name, double price) {
+		return true;
+	}
+
+	public boolean removeForSale(String name) {
+		return true;
+	}
+
+	public boolean removeForRent(String name) {
+		return true;
+	}
+
+
+	public void createTables() {
 	}
 
 }

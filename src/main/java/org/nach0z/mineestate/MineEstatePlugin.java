@@ -25,7 +25,7 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
     private YAMLProcessor wg_config;
     private WorldGuardPlugin worldguard_plugin;
     private ArrayList<String> available;
-    public MySqlConnector db;
+    public DBConnector db;
     public WorldGuardPlugin WORLDGUARD;
 	public ProtectedRegion testreg;
 	public void onDisable() {
