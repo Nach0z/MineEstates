@@ -26,6 +26,8 @@ public class EstateCommandExecutor implements CommandExecutor {
 		String owner = null;
 		String price = null;
 		String size = null;
+		boolean rents = false;
+		boolean sales = false;
 		if(sender instanceof Player)
 			player = (Player) sender;
 
@@ -39,9 +41,15 @@ public class EstateCommandExecutor implements CommandExecutor {
 					size = args[i+1];
 				if(args[i].equalsIgnoreCase("price") && i < args.length-1)
 					price = args[i+1];
+				for(String str : args) {
+					if(str.equalsIgnoreCase("sales"))
+						sales = true;
+					if(str.equalsIgnoreCase("rents"))
+						rents = true;
+				}
 
 			}
-		String message = getSales(owner, price, size);
+		String message = getSales(owner, price, size, sales, rents);
 		sender.sendMessage(prefix + message);
 		return true;
 		} else if (args[0].equalsIgnoreCase("buy")) {
@@ -65,10 +73,10 @@ public class EstateCommandExecutor implements CommandExecutor {
 		return true;
 	}
 
-	public String getSales(String owner, String strPrice, String strSize) {
+	public String getSales(String owner, String strPrice, String strSize, boolean sales, boolean rents) {
 	//TODO: add in Owner/size/price search stuff.
 	//BlockVector from ProtectedRegion.getMinimumPoint/getMaximumPoint has ints for min/max X, min/max Y
-	return "lolzdebug OWNER = " + owner + "; PRICE = " + strPrice + "; SIZE = " + strSize;
+	return "lolzdebug OWNER = " + owner + "; PRICE = " + strPrice + "; SIZE = " + strSize + "; includeRents = " + rents + "; includeSales = " + sales;
 	}
 
 	

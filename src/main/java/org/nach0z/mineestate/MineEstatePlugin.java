@@ -24,7 +24,7 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
     private Economy econ = null;
     private YAMLProcessor wg_config;
     private WorldGuardPlugin worldguard_plugin;
-    private ArrayList<String> available;
+//    private ArrayList<String> available;
     public DBConnector db;
     public WorldGuardPlugin WORLDGUARD;
 	public ProtectedRegion testreg;
@@ -80,7 +80,7 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 		getCommand("estates").setExecutor(cmd);
 
 		db = new MySqlConnector(this, wg_config);
-		available = db.getAvailable();
+		//available = db.getAvailable();
 	}
     }
 

@@ -27,7 +27,13 @@ public class MySqlConnector implements DBConnector {
 		createTables();
 	}
 
-	public ArrayList<String> getAvailable() {
+	public ArrayList<String> getForSale() {
+
+	return new ArrayList<String>();
+	}
+
+	public ArrayList<String> getForRent() {
+
 	return new ArrayList<String>();
 	}
 
