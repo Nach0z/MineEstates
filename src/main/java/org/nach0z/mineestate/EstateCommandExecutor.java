@@ -20,6 +20,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 	private MineEstatePlugin _plugin = null;
 	private AccountHandler accounts = null;
 	private String prefix = ChatColor.GREEN + "[Estates] " + ChatColor.GOLD;
+	private String prefix2 = ChatColor.GREEN + "[Estates] "+ChatColor.YELLOW;
 	EstateCommandExecutor(MineEstatePlugin plugin) {
 		_plugin=plugin;
 		accounts = new AccountHandler(_plugin);
@@ -70,9 +71,14 @@ public class EstateCommandExecutor implements CommandExecutor {
 
 			}
 		String message = getSales(owner, price, size, sales, rents, sort);
-		sender.sendMessage(prefix + message);
+		String[] lines = message.split("\n");
+		sender.sendMessage(prefix + lines[0]);
+		for(int i = 1; i < lines.length; i++)
+			sender.sendMessage(prefix2 + lines[i]);
 		return true;
+
 		} else if (args[0].equalsIgnoreCase("buy")) {
+			//@TODO add in confirmation/teleportation code
 			if(args[1] != null && regions.existsRegion(args[1]) && Double.compare(regions.getRegionPrice(args[1]), 0) > 0 ) {
 				double regPrice = regions.getRegionPrice(args[1]);
 				if(!accounts.hasFunds(player.getName(), regPrice))
@@ -87,9 +93,11 @@ public class EstateCommandExecutor implements CommandExecutor {
 					}
 				}
 			}
+		} else if (args[0].equalsIgnoreCase("sell")) {
+			if(args[1] != null && args[2] != null && regions.existsRegion(args[1]) && Double.compare(Double.parseDouble(args[2]), 0) > 0 && sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1]))) {
+				_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]));
+			}
 		}
-
-
 		return true;
 	}
 
@@ -108,7 +116,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 			if(!(strSize.equals("")) && !(isGreaterSize(listings.get(i).size, strSize)))
 				listings.remove(i);
 			//select only regions with this owner name
-			if(!(owner.equals("")) && !(regions.getOwnerName(listings.get(i).name).equalsIgnoreCase(owner)))
+			if(!(owner.equals("")) && !(listings.get(i).owner.equalsIgnoreCase(owner)))
 				listings.remove(i);
 			//narrow by price (increasing)
 			if(!(strPrice.equals("")) && !(Double.parseDouble(strPrice) < listings.get(i).price))
@@ -118,7 +126,14 @@ public class EstateCommandExecutor implements CommandExecutor {
 				Collections.sort(listings, new ListingComparator(sort, _plugin));
 			}
 		}
-		return "lolzdebug OWNER = " + owner + "; PRICE = " + strPrice + "; SIZE = " + strSize + "; includeRents = " + rents + "; includeSales = " + sales;
+		if(listings.size() > 0) {
+			String ret = "";
+			ret += "Name:           Price:     Size:    Owner:";
+			for(Listing lis : listings)
+				ret+="\n"+lis.toString();
+			return ret;
+		} else
+			return "No listings found for those parameters! Try broadening your search, or get an admin to put some plots on the market.";
 	}
 
 	public Boolean isGreaterSize(String test, String target) {

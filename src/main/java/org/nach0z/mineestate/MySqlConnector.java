@@ -46,7 +46,7 @@ public class MySqlConnector implements DBConnector {
 					String name = rs.getString("region_name");
 					String size = regions.getRegionSize(name);
 					//price, size, name, type
-					listing = new Listing(price, regions.getRegionSize(name), name, rs.getString("type"));
+					listing = new Listing(price, regions.getRegionSize(name), name, rs.getString("listing_type"), regions.getOwnerName(name));
 					ret.add(listing);
 				}
 			}
@@ -68,7 +68,7 @@ public class MySqlConnector implements DBConnector {
                                         String name = rs.getString("region_name");
                                         String size = regions.getRegionSize(name);
                                         //price, size, name, type
-                                        listing = new Listing(price, regions.getRegionSize(name), name, rs.getString("type"));
+                                        listing = new Listing(price, regions.getRegionSize(name), name, rs.getString("type"), regions.getOwnerName(name));
                                         ret.add(listing);
                                 }
                         }
@@ -80,6 +80,15 @@ public class MySqlConnector implements DBConnector {
 	}
 
 	public boolean addForSale(String name, double price) {
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("DELETE FROM estate_listings WHERE region_name LIKE '"+name+"'");
+			stmt.executeUpdate("INSERT INTO estate_listings(region_name, listing_type, price) VALUES ('"+name+"', 'sale', "+price+")");
+		} catch (Exception e) {
+			System.out.println("Problem adding the region "+name+" to sales listings");
+			System.out.println(e);
+			return false;
+		}
 		return true;
 	}
 
@@ -98,6 +107,7 @@ public class MySqlConnector implements DBConnector {
 
 	public void createTables() {
 		try {
+			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS estate_listings ( region_name VARCHAR(64), listing_type VARCHAR(10), price DOUBLE(16,2))");
 		} catch (Exception e) {
 			System.out.println(e);

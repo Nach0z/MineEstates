@@ -42,11 +42,7 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 	if(got_plugin instanceof WorldGuardPlugin) {
 		worldguard_plugin = (WorldGuardPlugin) got_plugin;
 		WORLDGUARD = worldguard_plugin;
-		System.out.println("WorldGuardPlugin!");
-		System.out.println(worldguard_plugin.getDataFolder());
 	}
-	else
-		System.out.println("Not a WorldGuardPlugin!");
 	if(!setupEcon()) {
 		System.out.println("[FATAL ERROR] MineEdit requires Vault and a Vault-compatible Economy plugin to be installed to interface with the economy! Please install Vault");
 		getServer().getPluginManager().disablePlugin(this);
@@ -61,7 +57,6 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 	}
 */
 
-	System.out.println(WORLDGUARD.getDataFolder());
 	wg_config = new YAMLProcessor(new File(WORLDGUARD.getDataFolder(), "config.yml"), true, YAMLFormat.EXTENDED);
 	try {
 		wg_config.load();
