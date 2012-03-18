@@ -22,6 +22,7 @@ import java.io.*;
 
 public class MineEstatePlugin extends JavaPlugin implements Listener{
     private Economy econ = null;
+    private RegionFlagManager manager;
     private YAMLProcessor wg_config;
     private WorldGuardPlugin worldguard_plugin;
 //    private ArrayList<String> available;
@@ -37,6 +38,7 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 //        getServer().getPluginManager().registerEvents(this, this);
 //	System.out.println(getServer().getPluginManager().getPlugin("WorldGuard"));
 	Plugin got_plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+	manager = new RegionFlagManager(this);
 	if(got_plugin instanceof WorldGuardPlugin) {
 		worldguard_plugin = (WorldGuardPlugin) got_plugin;
 		WORLDGUARD = worldguard_plugin;
@@ -94,6 +96,14 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 		return econ != null;
 
 
+    }
+
+    public RegionFlagManager getRegionFlagManager() {
+	return manager;
+    }
+
+    public DBConnector getDBConnector() {
+	return db;
     }
 
 }

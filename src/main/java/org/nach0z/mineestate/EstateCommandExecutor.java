@@ -1,15 +1,20 @@
 package org.nach0z.mineestate;
+
+import java.util.*;
+
 import com.sk89q.worldguard.*;
 import com.sk89q.worldguard.bukkit.*;
 import com.sk89q.worldguard.protection.*;
 import com.sk89q.worldguard.protection.regions.*;
 import com.sk89q.worldguard.protection.flags.*;
+
 import org.bukkit.*;
 import org.bukkit.plugin.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.command.*;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+
 public class EstateCommandExecutor implements CommandExecutor {
 	private RegionFlagManager regions = null;
 	private MineEstatePlugin _plugin = null;
@@ -18,14 +23,15 @@ public class EstateCommandExecutor implements CommandExecutor {
 	EstateCommandExecutor(MineEstatePlugin plugin) {
 		_plugin=plugin;
 		accounts = new AccountHandler(_plugin);
-		regions = new RegionFlagManager(_plugin);
+		regions =  _plugin.getRegionFlagManager();
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		Player player = null;
-		String owner = null;
-		String price = null;
-		String size = null;
+		String owner = "";
+		String price = "";
+		String size = "";
+		String sort = "";
 		boolean rents = false;
 		boolean sales = false;
 		if(sender instanceof Player)
@@ -41,6 +47,20 @@ public class EstateCommandExecutor implements CommandExecutor {
 					size = args[i+1];
 				if(args[i].equalsIgnoreCase("price") && i < args.length-1)
 					price = args[i+1];
+				if(args[i].equalsIgnoreCase("sort") && i < args.length-1) {
+					if(args[i+1].contains("owner"))
+						sort = "owner";
+					else if (args[i+1].contains("name"))
+						sort = "name";
+					else if (args[i+1].contains("size"))
+						sort = "size";
+					else if (args[i+1].contains("price"))
+						sort = "price";
+					else {
+						sender.sendMessage(prefix + "Sort parameter must be one of: name, size, price, owner");
+						return false;
+					}
+				}
 				for(String str : args) {
 					if(str.equalsIgnoreCase("sales"))
 						sales = true;
@@ -49,7 +69,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 				}
 
 			}
-		String message = getSales(owner, price, size, sales, rents);
+		String message = getSales(owner, price, size, sales, rents, sort);
 		sender.sendMessage(prefix + message);
 		return true;
 		} else if (args[0].equalsIgnoreCase("buy")) {
@@ -73,12 +93,40 @@ public class EstateCommandExecutor implements CommandExecutor {
 		return true;
 	}
 
-	public String getSales(String owner, String strPrice, String strSize, boolean sales, boolean rents) {
-	//TODO: add in Owner/size/price search stuff.
-	//BlockVector from ProtectedRegion.getMinimumPoint/getMaximumPoint has ints for min/max X, min/max Y
-	return "lolzdebug OWNER = " + owner + "; PRICE = " + strPrice + "; SIZE = " + strSize + "; includeRents = " + rents + "; includeSales = " + sales;
+	public String getSales(String owner, String strPrice, String strSize, boolean sales, boolean rents, String sort) {
+		//TODO: add in Owner/size/price search stuff.
+		//BlockVector from ProtectedRegion.getMinimumPoint/getMaximumPoint has ints for min/max X, min/max Y
+		ArrayList<Listing> listings = new ArrayList<Listing>();
+		if(rents)
+			for(Listing l : _plugin.getDBConnector().getForRent())
+				listings.add(l);
+		if(sales)
+			for(Listing l : _plugin.getDBConnector().getForSale())
+				listings.add(l);
+		for(int i = 0; i < listings.size(); i++) {
+			//narrow by size (increasing)
+			if(!(strSize.equals("")) && !(isGreaterSize(listings.get(i).size, strSize)))
+				listings.remove(i);
+			//select only regions with this owner name
+			if(!(owner.equals("")) && !(regions.getOwnerName(listings.get(i).name).equalsIgnoreCase(owner)))
+				listings.remove(i);
+			//narrow by price (increasing)
+			if(!(strPrice.equals("")) && !(Double.parseDouble(strPrice) < listings.get(i).price))
+				listings.remove(i);
+			//
+			if(!(sort.equals(""))) {
+				Collections.sort(listings, new ListingComparator(sort, _plugin));
+			}
+		}
+		return "lolzdebug OWNER = " + owner + "; PRICE = " + strPrice + "; SIZE = " + strSize + "; includeRents = " + rents + "; includeSales = " + sales;
 	}
 
-	
+	public Boolean isGreaterSize(String test, String target) {
+		String[] lis1pair = test.split("x");
+                String[] lis2pair = target.split("x");
+		return (Integer.parseInt(lis1pair[1]) >= Integer.parseInt(lis2pair[1]) && Integer.parseInt(lis1pair[0]) >= Integer.parseInt(lis2pair[0]));
+
+	}
+
 
 }

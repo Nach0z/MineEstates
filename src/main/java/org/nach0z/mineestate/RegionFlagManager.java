@@ -5,6 +5,7 @@ import com.sk89q.worldguard.protection.*;
 import com.sk89q.worldguard.protection.regions.*;
 import com.sk89q.worldguard.domains.*;
 import com.sk89q.worldguard.protection.flags.*;
+import com.sk89q.worldedit.BlockVector;
 
 import java.util.Set;
 import org.bukkit.*;
@@ -96,6 +97,20 @@ public class RegionFlagManager {
 	}
 	return false;
 
+    }
+
+    public String getRegionSize(String regionName) {
+	World world = Bukkit.getServer().getWorld("world");
+	if(existsRegion(regionName) ){
+		ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
+		BlockVector min = target.getMinimumPoint();
+		BlockVector max = target.getMaximumPoint();
+		int widthZ = (int)max.getZ() - (int)min.getZ();
+		int widthX = (int)max.getX() - (int)min.getX();
+		return widthX+"x"+widthZ;
+
+	} else
+		return "";
     }
 
 }

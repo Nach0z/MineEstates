@@ -13,14 +13,14 @@ public class FileDBConnector implements DBConnector {
 	}
 
 
-	public ArrayList<String> getForSale() {
+	public ArrayList<Listing> getForSale() {
 
-		return new ArrayList<String>();
+		return new ArrayList<Listing>();
 	}
 
-	public ArrayList<String> getForRent() {
+	public ArrayList<Listing> getForRent() {
 
-		return new ArrayList<String>();
+		return new ArrayList<Listing>();
 	}
 
 	public boolean addForSale(String regionName, double price) {

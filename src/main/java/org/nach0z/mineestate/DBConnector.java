@@ -4,9 +4,9 @@ import java.util.*;
 
 public interface DBConnector {
 
-	public ArrayList<String> getForSale();
+	public ArrayList<Listing> getForSale();
 
-	public ArrayList<String> getForRent();
+	public ArrayList<Listing> getForRent();
 
 	public boolean addForSale(String regionName, double price);
 
