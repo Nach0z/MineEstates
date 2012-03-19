@@ -12,11 +12,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import net.milkbowl.vault.Vault;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.permission.Permission;
+
 import java.util.*;
 import java.io.*;
 
@@ -112,5 +114,8 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 	return db;
     }
 
+    public Permission getPermissions() {
+	return perms;
+    }
 }
 

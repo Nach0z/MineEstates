@@ -50,7 +50,7 @@ public class RegionFlagManager {
 		Object ob = ownerList.iterator().next();
 		if(ob instanceof String)
 			return (String) ob;
-		return null;
+		return "";
 	}
     }
 

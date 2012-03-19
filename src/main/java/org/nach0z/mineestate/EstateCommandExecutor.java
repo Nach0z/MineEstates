@@ -15,10 +15,13 @@ import org.bukkit.command.*;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import net.milkbowl.vault.permission.Permission;
+
 public class EstateCommandExecutor implements CommandExecutor {
 	private RegionFlagManager regions = null;
 	private MineEstatePlugin _plugin = null;
 	private AccountHandler accounts = null;
+	private Permission perms = null;
 	private String prefix = ChatColor.GREEN + "[Estates] " + ChatColor.GOLD;
 	private String preferr = ChatColor.GREEN + "[Estates] "+ChatColor.RED;
 	private String prefix2 = ChatColor.GREEN + "[Estates] "+ChatColor.YELLOW;
@@ -26,6 +29,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 		_plugin=plugin;
 		accounts = new AccountHandler(_plugin);
 		regions =  _plugin.getRegionFlagManager();
+		perms = _plugin.getPermissions();
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -89,6 +93,10 @@ public class EstateCommandExecutor implements CommandExecutor {
 		return true;
 
 		} else if (args[0].equalsIgnoreCase("buy")) {
+			if(!perms.has(player, "estates.plots.buy") && !player.isOp()) {
+				sender.sendMessage(preferr + "You do not have permission to buy plots!");
+				return true;
+			}
 			//@TODO add in confirmation/teleportation code
 			if(args.length > 1 ) {
 				if( regions.existsRegion(args[1]) && Double.compare(regions.getRegionPrice(args[1]), 0) > 0 ) {
@@ -108,6 +116,10 @@ public class EstateCommandExecutor implements CommandExecutor {
 				sender.sendMessage(preferr + "Wrong number of args: Usage is /estates buy <regionname>");
 			}
 		} else if (args[0].equalsIgnoreCase("sell")) {
+			if(!perms.has(player, "estates.plots.sell") && !player.isOp()) {
+				sender.sendMessage(preferr + "You do not have permission to sell plots!");
+				return true;
+			}
 			if(args.length > 2 ) {
 				if(regions.existsRegion(args[1])) {
 					if( Double.compare(Double.parseDouble(args[2]), 0) > 0 && sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1]))) {
@@ -124,6 +136,10 @@ public class EstateCommandExecutor implements CommandExecutor {
 			}
 
 		} else if (args[0].equalsIgnoreCase("sellPublic")) {
+			if(!perms.has(player, "estates.plots.sellpublic") && !player.isOp()) {
+				sender.sendMessage(preferr + "You do not have permission to sell public plots!");
+				return true;
+			}
 			if(args.length > 1) {
 				_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]));
 				sender.sendMessage(prefix + "Successfully added "+args[1]+" to the estate market for "+args[2]+"!");
