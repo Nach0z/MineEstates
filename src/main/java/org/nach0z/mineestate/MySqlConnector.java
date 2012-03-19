@@ -12,15 +12,13 @@ import com.sk89q.util.yaml.YAMLProcessor;
 import com.sk89q.util.yaml.YAMLFormat;
 
 public class MySqlConnector implements DBConnector {
-	private YAMLProcessor wg_config;
 	private RegionFlagManager regions;
 	private MineEstatePlugin _plugin;
 	private Connection conn;
 	private Statement stmt;
 
-	public MySqlConnector(MineEstatePlugin plugin, YAMLProcessor _wg_config) {
+	public MySqlConnector(MineEstatePlugin plugin, YAMLProcessor wg_config) {
 		_plugin = plugin;
-		wg_config = _wg_config;
 		try {
 			conn= DriverManager.getConnection(wg_config.getString("regions.sql.dsn"), wg_config.getString("regions.sql.username"), wg_config.getString("regions.sql.password"));
 			Statement stmt = conn.createStatement();

@@ -20,6 +20,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 	private MineEstatePlugin _plugin = null;
 	private AccountHandler accounts = null;
 	private String prefix = ChatColor.GREEN + "[Estates] " + ChatColor.GOLD;
+	private String preferr = ChatColor.GREEN + "[Estates] "+ChatColor.RED;
 	private String prefix2 = ChatColor.GREEN + "[Estates] "+ChatColor.YELLOW;
 	EstateCommandExecutor(MineEstatePlugin plugin) {
 		_plugin=plugin;
@@ -40,7 +41,18 @@ public class EstateCommandExecutor implements CommandExecutor {
 
 		if(!command.getName().equalsIgnoreCase("estates"))
 			return true;
+		if(!(args.length > 1)) {
+			sender.sendMessage(preferr + "Incorrect syntax: Usages include all of the following:");
+			sender.sendMessage(prefix2 + "/estates sell <regionName> <price>");
+			sender.sendMessage(prefix2 + "/estates buy <regionname>");
+			sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price> (Requires specific permissions!)");
+			sender.sendMessage(prefix2 + "/estates search [sales|rents] [owner <ownername>] [size <##x##> (try 10x10)]  [price <maxPrice>] [sort <owner|size|name|price>]");
+			return true;
+		}
 		if(args[0].equalsIgnoreCase("search")) {
+			if(args.length%2 != 0) {
+				sender.sendMessage(preferr + "Wrong number of arguments. Usage: /estates search [sales|rents] [owner <ownerName>] [size <#x#> (try 10x10)] [price <maxPrice>] [sort <owner|size|name|price>]");
+			}
 			for(int i = 0; i< args.length; i++) {
 				if(args[i].equalsIgnoreCase("owner") && i < args.length-1)
 					owner = args[i+1];
@@ -59,7 +71,6 @@ public class EstateCommandExecutor implements CommandExecutor {
 						sort = "price";
 					else {
 						sender.sendMessage(prefix + "Sort parameter must be one of: name, size, price, owner");
-						return false;
 					}
 				}
 				for(String str : args) {
@@ -79,23 +90,45 @@ public class EstateCommandExecutor implements CommandExecutor {
 
 		} else if (args[0].equalsIgnoreCase("buy")) {
 			//@TODO add in confirmation/teleportation code
-			if(args[1] != null && regions.existsRegion(args[1]) && Double.compare(regions.getRegionPrice(args[1]), 0) > 0 ) {
-				double regPrice = regions.getRegionPrice(args[1]);
-				if(!accounts.hasFunds(player.getName(), regPrice))
-					sender.sendMessage(prefix + "You don't have enough funds to purchase this region!");
-				else {
-					if(regions.transferOwnership(args[1], player.getName())) {
-						sender.sendMessage(prefix + "You have successfully purchased "+args[1]+" for " + price + accounts.getUnitsPlural());
-						return true;
+			if(args.length > 1 ) {
+				if( regions.existsRegion(args[1]) && Double.compare(regions.getRegionPrice(args[1]), 0) > 0 ) {
+					double regPrice = regions.getRegionPrice(args[1]);
+					if(!accounts.hasFunds(player.getName(), regPrice)) {
+						sender.sendMessage(prefix + "You don't have enough funds to purchase this region!");
 					} else {
-						sender.sendMessage(prefix + "The purchase has failed. This may be because the region has multiple owners, or because of an internal error. Please talk to your server admin.");
-						return false;
+						if(regions.transferOwnership(args[1], player.getName())) {
+							sender.sendMessage(prefix + "You have successfully purchased "+args[1]+" for " + price + accounts.getUnitsPlural());
+							return true;
+						} else {
+							sender.sendMessage(prefix + "The purchase has failed. This may be because the region has multiple owners, or because of an internal error. Please talk to your server admin.");
+						}
 					}
 				}
+			} else {
+				sender.sendMessage(preferr + "Wrong number of args: Usage is /estates buy <regionname>");
 			}
 		} else if (args[0].equalsIgnoreCase("sell")) {
-			if(args[1] != null && args[2] != null && regions.existsRegion(args[1]) && Double.compare(Double.parseDouble(args[2]), 0) > 0 && sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1]))) {
+			if(args.length > 2 ) {
+				if(regions.existsRegion(args[1])) {
+					if( Double.compare(Double.parseDouble(args[2]), 0) > 0 && sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1]))) {
+						_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]));
+						sender.sendMessage(prefix + "Successfully added "+args[1]+" to the estate market for "+args[2]+"!");
+					} else {
+						sender.sendMessage(preferr + "Failed to add specified estate to the market: You are not the owner!");
+					}
+				} else {
+					sender.sendMessage(preferr + "This region cannot be sold: It does not exist!");
+				}
+			} else {
+				sender.sendMessage(preferr + "Incorrect syntax. Usage: /estates sell <regionname> <price>");
+			}
+
+		} else if (args[0].equalsIgnoreCase("sellPublic")) {
+			if(args.length > 1) {
 				_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]));
+				sender.sendMessage(prefix + "Successfully added "+args[1]+" to the estate market for "+args[2]+"!");
+			} else {
+				sender.sendMessage(preferr + "Incorrect syntax. Usage: /estates sellPublic <regionname> <price>");
 			}
 		}
 		return true;

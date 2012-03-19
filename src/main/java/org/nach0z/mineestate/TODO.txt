@@ -1,0 +1,6 @@
+Permissions (Vault supports this!)
+Rent/lease functionality
+File DB setup for non-MySQL setups
+Checking for whether a plot is actually for sale before finalizing transaction
+Transaction confirmation for /estates buy
+Tranport to location for transaction confirmation.
