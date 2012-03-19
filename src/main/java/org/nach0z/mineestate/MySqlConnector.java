@@ -95,6 +95,13 @@ public class MySqlConnector implements DBConnector {
 	}
 
 	public boolean removeForSale(String name) {
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("DELETE FROM estate_listings WHERE region_name LIKE '"+name+"'");
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
 		return true;
 	}
 
@@ -102,7 +109,17 @@ public class MySqlConnector implements DBConnector {
 		return true;
 	}
 
+	public boolean isForSale(String name) {
+		try{
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM estate_listings WHERE region_name LIKE '"+name+"'");
+			return rs.next();
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
 
+	}
 	public void createTables() {
 		try {
 			Statement stmt = conn.createStatement();

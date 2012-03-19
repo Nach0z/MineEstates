@@ -54,5 +54,8 @@ public class FileDBConnector implements DBConnector {
 		return true;
 	}
 
+	public boolean isForSale(String regionName) {
+		return true;
+	}
 
 }

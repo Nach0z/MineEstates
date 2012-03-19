@@ -38,6 +38,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 		String price = "";
 		String size = "";
 		String sort = "";
+		int sortIndex = -1;
 		boolean rents = false;
 		boolean sales = false;
 		if(sender instanceof Player)
@@ -58,21 +59,29 @@ public class EstateCommandExecutor implements CommandExecutor {
 				sender.sendMessage(preferr + "Wrong number of arguments. Usage: /estates search [sales|rents] [owner <ownerName>] [size <#x#> (try 10x10)] [price <maxPrice>] [sort <owner|size|name|price>]");
 			}
 			for(int i = 0; i< args.length; i++) {
-				if(args[i].equalsIgnoreCase("owner") && i < args.length-1)
+				if(args[i].equalsIgnoreCase("owner") && i < args.length-1 && !(owner.length() > 0) && i > sortIndex)
 					owner = args[i+1];
-				if(args[i].equalsIgnoreCase("size") && i < args.length-1)
+				if(args[i].equalsIgnoreCase("size") && i < args.length-1 && !(size.length() > 0) && i > sortIndex)
 					size = args[i+1];
-				if(args[i].equalsIgnoreCase("price") && i < args.length-1)
+				if(args[i].equalsIgnoreCase("price") && i < args.length-1 && !(price.length() > 0) && i > sortIndex)
 					price = args[i+1];
 				if(args[i].equalsIgnoreCase("sort") && i < args.length-1) {
-					if(args[i+1].contains("owner"))
+					if(args[i+1].contains("owner")) {
 						sort = "owner";
-					else if (args[i+1].contains("name"))
+						sortIndex = i;
+					}
+					else if (args[i+1].contains("name")) {
 						sort = "name";
-					else if (args[i+1].contains("size"))
+						sortIndex = i;
+					}
+					else if (args[i+1].contains("size")) {
 						sort = "size";
-					else if (args[i+1].contains("price"))
+						sortIndex = i;
+					}
+					else if (args[i+1].contains("price")) {
 						sort = "price";
+						sortIndex = i;
+					}
 					else {
 						sender.sendMessage(prefix + "Sort parameter must be one of: name, size, price, owner");
 					}
@@ -105,7 +114,9 @@ public class EstateCommandExecutor implements CommandExecutor {
 						sender.sendMessage(prefix + "You don't have enough funds to purchase this region!");
 					} else {
 						if(regions.transferOwnership(args[1], player.getName())) {
-							sender.sendMessage(prefix + "You have successfully purchased "+args[1]+" for " + price + accounts.getUnitsPlural());
+							sender.sendMessage(prefix + "You have successfully purchased "+args[1]+" for " + regPrice +" "+ accounts.getUnitsPlural());
+							regions.setPriceFlag(args[1], 0);
+							_plugin.getDBConnector().removeForSale(args[1]);
 							return true;
 						} else {
 							sender.sendMessage(prefix + "The purchase has failed. This may be because the region has multiple owners, or because of an internal error. Please talk to your server admin.");
@@ -122,7 +133,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 			}
 			if(args.length > 2 ) {
 				if(regions.existsRegion(args[1])) {
-					if( Double.compare(Double.parseDouble(args[2]), 0) > 0 && sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1]))) {
+					if( Double.compare(Double.parseDouble(args[2]), 0) > 0 && sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1])) && regions.setPriceFlag(args[1], Double.parseDouble(args[2]))) {
 						_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]));
 						sender.sendMessage(prefix + "Successfully added "+args[1]+" to the estate market for "+args[2]+"!");
 					} else {
@@ -140,7 +151,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 				sender.sendMessage(preferr + "You do not have permission to sell public plots!");
 				return true;
 			}
-			if(args.length > 1) {
+			if(args.length > 1 && regions.setPriceFlag(args[1], Double.parseDouble(args[2]))) {
 				_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]));
 				sender.sendMessage(prefix + "Successfully added "+args[1]+" to the estate market for "+args[2]+"!");
 			} else {
@@ -168,7 +179,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 			if(!(owner.equals("")) && !(listings.get(i).owner.equalsIgnoreCase(owner)))
 				listings.remove(i);
 			//narrow by price (increasing)
-			if(!(strPrice.equals("")) && !(Double.parseDouble(strPrice) < listings.get(i).price))
+			if(!(strPrice.equals("")) && !(Double.parseDouble(strPrice) >= listings.get(i).price))
 				listings.remove(i);
 			//
 			if(!(sort.equals(""))) {

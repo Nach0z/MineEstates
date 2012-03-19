@@ -65,6 +65,10 @@ public class RegionFlagManager {
 	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 	String currentOwner = getOwnerName(regionName);
 	boolean ret;
+	if(!_plugin.getDBConnector().isForSale(regionName)) {
+		_plugin.getDBConnector().removeForSale(regionName);
+		return false;
+	}
 	if(currentOwner.equals("FAILED_MULTI"))
 		return false;
 	if(accounts.chargeMoney(newOwner,getRegionPrice(regionName))) {
@@ -84,6 +88,7 @@ public class RegionFlagManager {
 				ret = false;
 			}
 		}
+		target.setFlag(DefaultFlag.PRICE, null);
 		_plugin.WORLDGUARD.getGlobalRegionManager().get(world).removeRegion(regionName);
 		_plugin.WORLDGUARD.getGlobalRegionManager().get(world).addRegion(target);
 		try {
@@ -97,6 +102,24 @@ public class RegionFlagManager {
 	}
 	return false;
 
+    }
+
+    public boolean setPriceFlag(String regionName, double price) {
+	Double val;
+	ProtectedRegion target;
+	ProtectedRegion updated;
+	World world = Bukkit.getServer().getWorld("world");
+	if(!existsRegion(regionName))
+		return false;
+	if(Double.compare(price, 0.0) == 0)
+		val = null;
+	else
+		val = price;
+	target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
+	target.setFlag(DefaultFlag.PRICE, val);
+	_plugin.WORLDGUARD.getGlobalRegionManager().get(world).removeRegion(regionName);
+	_plugin.WORLDGUARD.getGlobalRegionManager().get(world).addRegion(target);
+	return true;
     }
 
     public String getRegionSize(String regionName) {

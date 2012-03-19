@@ -16,6 +16,7 @@ public interface DBConnector {
 
 	public boolean removeForRent(String regionName);
 
+	public boolean isForSale(String regionName);
 
 
 }
