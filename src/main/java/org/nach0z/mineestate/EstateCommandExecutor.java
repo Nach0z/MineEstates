@@ -218,16 +218,20 @@ public class EstateCommandExecutor implements CommandExecutor {
 					sender.sendMessage(prefix2 + str);
 			}
 		} else if (args[0].equalsIgnoreCase("cancel")) {
-			if(regions.existsRegion(args[1]) && sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1]))) {
-				if(!_plugin.getDBConnector().isForSale(args[1])) {
-					sender.sendMessage(preferr + "This plot is not on the market right now!");
-					return true;
+			if(regions.existsRegion(args[1])) {
+				if(sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1])) || player.isOp() ||perms.has(player, "estates.plot.cancelOverride")) {
+					if(!_plugin.getDBConnector().isForSale(args[1])) {
+						sender.sendMessage(preferr + "This plot is not on the market right now!");
+						return true;
+					}
+					_plugin.getDBConnector().removeForSale(args[1]);
+					_plugin.getDBConnector().removeForRent(args[1]);
+					_plugin.getRegionFlagManager().setPriceFlag(args[1], 0);
+				} else {
+					sender.sendMessage(preferr + "You are not allowed to cancel this listing!");
 				}
-				_plugin.getDBConnector().removeForSale(args[1]);
-				_plugin.getDBConnector().removeForRent(args[1]);
-				_plugin.getRegionFlagManager().setPriceFlag(args[1], 0);
 			} else {
-				sender.sendMessage(preferr + "You are not allowed to cancel this listing!");
+				sender.sendMessage(preferr + "This region does not exist!");
 			}
 		}
 		return true;
