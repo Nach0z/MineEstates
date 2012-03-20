@@ -26,6 +26,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 	private String prefix = ChatColor.GREEN + "[Estates] " + ChatColor.GOLD;
 	private String preferr = ChatColor.GREEN + "[Estates] "+ChatColor.RED;
 	private String prefix2 = ChatColor.GREEN + "[Estates] "+ChatColor.YELLOW;
+	private String prefpage = ChatColor.GREEN + "[Estates] "+ChatColor.GRAY;
 	EstateCommandExecutor(MineEstatePlugin plugin) {
 		_plugin=plugin;
 		accounts = new AccountHandler(_plugin);
@@ -48,12 +49,15 @@ public class EstateCommandExecutor implements CommandExecutor {
 
 		if(!command.getName().equalsIgnoreCase("estates"))
 			return true;
+		if(!(args[0].equalsIgnoreCase("page")))
+			lookups.put(sender.getName(), null);
 		if(!(args.length > 1)) {
 			sender.sendMessage(preferr + "Incorrect syntax: Usages include all of the following:");
 			sender.sendMessage(prefix2 + "/estates sell <regionName> <price>");
 			sender.sendMessage(prefix2 + "/estates buy <regionname>");
 			sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price> (Requires specific permissions!)");
 			sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sort param>");
+			sender.sendMessage(prefix2 + "/estates page <pagenumber> (do this command to see more pages of results, if they exist)");
 			sender.sendMessage(prefix2 + "Valid params: owner <ownername>, size <#x#> (ex. 10x10, or 14x7), price <maxprice>");
 			sender.sendMessage(prefix2 + "Valid sort params: owner, name, size, price. To sort your results, add \" sort <sortparam> \" to your query.");
 			return true;
@@ -63,6 +67,7 @@ public class EstateCommandExecutor implements CommandExecutor {
                         sender.sendMessage(prefix2 + "/estates buy <regionname>");
                         sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price> (Requires specific permissions!)");
                         sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sort param>");
+			sender.sendMessage(prefix2 + "/estates page <pagenumber> (do this command to see more pages of results, if they exist)");
                         sender.sendMessage(prefix2 + "Valid params: owner <ownername>, size <#x#> (ex. 10x10, or 14x7), price <maxprice>");
                         sender.sendMessage(prefix2 + "Valid sort params: owner, name, size, price. To sort your results, add \" sort <sortparam> \" to your query.");
                         return true;
@@ -111,8 +116,13 @@ public class EstateCommandExecutor implements CommandExecutor {
 		String message = getSales(owner, price, size, sales, rents, sort);
 		String[] lines = message.split("\n");
 		sender.sendMessage(prefix + lines[0]);
+		LookupCache tmpCache = new LookupCache();
 		for(int i = 1; i < lines.length; i++)
-			sender.sendMessage(prefix2 + lines[i]);
+			tmpCache.addLine(lines[i]);
+		lookups.put(sender.getName(), tmpCache);
+		sender.sendMessage(prefpage + "--- Results page "+ChatColor.WHITE+" 1 "+ChatColor.GRAY+" of "+ChatColor.WHITE+tmpCache.getPages()+ChatColor.GRAY+" ---");
+		for(String str : lookups.get(sender.getName()).getLines(0))
+			sender.sendMessage(prefix2 + str);
 		return true;
 
 		} else if (args[0].equalsIgnoreCase("buy")) {
@@ -188,6 +198,20 @@ public class EstateCommandExecutor implements CommandExecutor {
 				}
 			} else {
 				sender.sendMessage(preferr + "Improper syntax. Usage: /estates goto <regionname>");
+			}
+		} else if (args[0].equalsIgnoreCase("page")) {
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+				sender.sendMessage(preferr + "You have not put in a search query yet! Use /estates search to look for available plots.");
+				return true;
+			}
+			LookupCache tmpCache = lookups.get(sender.getName());
+			int offset = 8*(Integer.parseInt(args[1])-1);
+			if(tmpCache.getLines(offset).size() == 0)
+				sender.sendMessage(prefix + "No results on this page.");
+			else {
+				sender.sendMessage(prefpage + "--- Results page "+ChatColor.WHITE+args[1]+ChatColor.GRAY+" of "+ChatColor.WHITE+tmpCache.getPages()+ChatColor.GRAY+" ---");
+				for(String str : tmpCache.getLines(offset))
+					sender.sendMessage(prefix2 + str);
 			}
 		}
 		return true;
