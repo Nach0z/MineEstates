@@ -22,6 +22,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 	private MineEstatePlugin _plugin = null;
 	private AccountHandler accounts = null;
 	private Permission perms = null;
+	private Map<String, LookupCache> lookups;;
 	private String prefix = ChatColor.GREEN + "[Estates] " + ChatColor.GOLD;
 	private String preferr = ChatColor.GREEN + "[Estates] "+ChatColor.RED;
 	private String prefix2 = ChatColor.GREEN + "[Estates] "+ChatColor.YELLOW;
@@ -30,6 +31,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 		accounts = new AccountHandler(_plugin);
 		regions =  _plugin.getRegionFlagManager();
 		perms = _plugin.getPermissions();
+		lookups = new HashMap<String, LookupCache>();
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
