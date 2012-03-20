@@ -1,7 +1,0 @@
-name: Hardcore
-main: com.Evilgeniuses.Hardcore.HardcorePlugin
-version: 0.5
-commands:
-   hardcore:
-      description: Hardcore commands
-      usage: /hardcore res|slay|info|setpurgatory [player]
