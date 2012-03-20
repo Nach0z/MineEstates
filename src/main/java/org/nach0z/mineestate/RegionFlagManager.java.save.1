@@ -136,16 +136,6 @@ public class RegionFlagManager {
 		return "";
     }
 
-    public Location getTPPos(String regionName) {
-	Location loc = null;
-	World world = Bukkit.getServer().getWorld("world");
-        if(existsRegion(regionName) ){
-                ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
-		BlockVector max = target.getMaximumPoint();
-		loc = new Location(world, max.getX(), world.getHighestBlockYAt((int)max.getX(), (int)max.getZ()), max.getZ());
-	}
-	return loc;
-    }
+    public Location get
 
 }
-

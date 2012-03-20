@@ -51,12 +51,24 @@ public class EstateCommandExecutor implements CommandExecutor {
 			sender.sendMessage(prefix2 + "/estates sell <regionName> <price>");
 			sender.sendMessage(prefix2 + "/estates buy <regionname>");
 			sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price> (Requires specific permissions!)");
-			sender.sendMessage(prefix2 + "/estates search [sales|rents] [owner <ownername>] [size <##x##> (try 10x10)]  [price <maxPrice>] [sort <owner|size|name|price>]");
+			sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sort param>");
+			sender.sendMessage(prefix2 + "Valid params: owner <ownername>, size <#x#> (ex. 10x10, or 14x7), price <maxprice>");
+			sender.sendMessage(prefix2 + "Valid sort params: owner, name, size, price. To sort your results, add \" sort <sortparam> \" to your query.");
 			return true;
+		}
+		if(args[1].equalsIgnoreCase("usage")) {
+                        sender.sendMessage(prefix2 + "/estates sell <regionName> <price>");
+                        sender.sendMessage(prefix2 + "/estates buy <regionname>");
+                        sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price> (Requires specific permissions!)");
+                        sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sort param>");
+                        sender.sendMessage(prefix2 + "Valid params: owner <ownername>, size <#x#> (ex. 10x10, or 14x7), price <maxprice>");
+                        sender.sendMessage(prefix2 + "Valid sort params: owner, name, size, price. To sort your results, add \" sort <sortparam> \" to your query.");
+                        return true;
 		}
 		if(args[0].equalsIgnoreCase("search")) {
 			if(args.length%2 != 0) {
-				sender.sendMessage(preferr + "Wrong number of arguments. Usage: /estates search [sales|rents] [owner <ownerName>] [size <#x#> (try 10x10)] [price <maxPrice>] [sort <owner|size|name|price>]");
+				sender.sendMessage(preferr + "Wrong number of arguments. Usage: /estates search [sales|rents] <params> <sort param>");
+				sender.sendMessage(preferr + "See /estates usage for a full description of params and sorting.");
 			}
 			for(int i = 0; i< args.length; i++) {
 				if(args[i].equalsIgnoreCase("owner") && i < args.length-1 && !(owner.length() > 0) && i > sortIndex)
@@ -151,11 +163,29 @@ public class EstateCommandExecutor implements CommandExecutor {
 				sender.sendMessage(preferr + "You do not have permission to sell public plots!");
 				return true;
 			}
-			if(args.length > 1 && regions.setPriceFlag(args[1], Double.parseDouble(args[2]))) {
+			if(args.length > 2 && regions.setPriceFlag(args[1], Double.parseDouble(args[2]))) {
 				_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]));
+				regions.setPriceFlag(args[1], Double.parseDouble(args[2]));
 				sender.sendMessage(prefix + "Successfully added "+args[1]+" to the estate market for "+args[2]+"!");
 			} else {
 				sender.sendMessage(preferr + "Incorrect syntax. Usage: /estates sellPublic <regionname> <price>");
+			}
+		} else if (args[0].equalsIgnoreCase("goto")) {
+			if(!perms.has(player, "estates.plots.buy") && !player.isOp()) {
+				sender.sendMessage(preferr + "You do not have permission to goto plots!");
+				return true;
+			}
+			if(args.length > 1) {
+				if(regions.existsRegion(args[1]) && _plugin.getDBConnector().isForSale(args[1])) {
+					//World.getHighestBlockYAt(Location location)
+					//player.teleport(Location location)
+					Location loc = _plugin.getRegionFlagManager().getTPPos(args[1]);
+					player.teleport(loc);
+				} else {
+					sender.sendMessage(prefix + "This plot is not available on the market right now.");
+				}
+			} else {
+				sender.sendMessage(preferr + "Improper syntax. Usage: /estates goto <regionname>");
 			}
 		}
 		return true;
@@ -173,14 +203,20 @@ public class EstateCommandExecutor implements CommandExecutor {
 				listings.add(l);
 		for(int i = 0; i < listings.size(); i++) {
 			//narrow by size (increasing)
-			if(!(strSize.equals("")) && !(isGreaterSize(listings.get(i).size, strSize)))
+			if(!(strSize.equals("")) && !(isGreaterSize(listings.get(i).size, strSize))) {
 				listings.remove(i);
+				i--;
+			}
 			//select only regions with this owner name
-			if(!(owner.equals("")) && !(listings.get(i).owner.equalsIgnoreCase(owner)))
+			if(!(owner.equals("")) && !(listings.get(i).owner.equalsIgnoreCase(owner))) {
 				listings.remove(i);
+				i--;
+			}
 			//narrow by price (increasing)
-			if(!(strPrice.equals("")) && !(Double.parseDouble(strPrice) >= listings.get(i).price))
+			if(!(strPrice.equals("")) && !(Double.parseDouble(strPrice) >= listings.get(i).price)) {
 				listings.remove(i);
+				i--;
+			}
 			//
 			if(!(sort.equals(""))) {
 				Collections.sort(listings, new ListingComparator(sort, _plugin));

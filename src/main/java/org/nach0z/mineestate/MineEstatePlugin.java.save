@@ -12,20 +12,24 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import net.milkbowl.vault.Vault;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.permission.Permission;
+
 import java.util.*;
 import java.io.*;
 
 public class MineEstatePlugin extends JavaPlugin implements Listener{
     private Economy econ = null;
+    private Permission perms = null;
+    private RegionFlagManager manager;
     private YAMLProcessor wg_config;
     private WorldGuardPlugin worldguard_plugin;
-    private ArrayList<String> available;
-    public MySqlConnector db;
+//    private ArrayList<String> available;
+    public DBConnector db;
     public WorldGuardPlugin WORLDGUARD;
 	public ProtectedRegion testreg;
 	public void onDisable() {
@@ -37,19 +41,20 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 //        getServer().getPluginManager().registerEvents(this, this);
 //	System.out.println(getServer().getPluginManager().getPlugin("WorldGuard"));
 	Plugin got_plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+	manager = new RegionFlagManager(this);
 	if(got_plugin instanceof WorldGuardPlugin) {
 		worldguard_plugin = (WorldGuardPlugin) got_plugin;
 		WORLDGUARD = worldguard_plugin;
-		System.out.println("WorldGuardPlugin!");
-		System.out.println(worldguard_plugin.getDataFolder());
 	}
-	else
-		System.out.println("Not a WorldGuardPlugin!");
 	if(!setupEcon()) {
-		System.out.println("[FATAL ERROR] MineEdit requires Vault to be installed to interface with the economy! Please install Vault");
+		System.out.println("[FATAL ERROR] MineEstates requires Vault and a Vault-compatible Economy plugin to be installed to interface with the economy! Please install Vault");
 		getServer().getPluginManager().disablePlugin(this);
 		return;
-
+	}
+	if(!setupPerms()) {
+		System.out.println("[FATAL ERROR] MineEstates requires a Vault-Compatible permissions plugin and Vault itself. Please install both of these. Check Vault's page to see if your permissions plugin works with it.");
+		getServer().getPluginManager().disablePlugin(this);
+		return;
 	}
 /*	if(!WORLDGUARD.getConfig().getBoolean("regions.sql.use")) {
 		System.out.println("[FATAL ERROR] MineEstates REQUIRES WorldGuard to be using the MySQL Database for functionality!");
@@ -59,7 +64,6 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 	}
 */
 
-	System.out.println(WORLDGUARD.getDataFolder());
 	wg_config = new YAMLProcessor(new File(WORLDGUARD.getDataFolder(), "config.yml"), true, YAMLFormat.EXTENDED);
 	try {
 		wg_config.load();
@@ -80,7 +84,7 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 		getCommand("estates").setExecutor(cmd);
 
 		db = new MySqlConnector(this, wg_config);
-		available = db.getAvailable();
+		//available = db.getAvailable();
 	}
     }
 
@@ -91,10 +95,27 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 	if (rsp == null)
 		return false;
 	econ = rsp.getProvider();
-		return econ != null;
-
-
+	return econ != null;
     }
 
+    public boolean setupPerms() {
+	if(getServer().getPluginManager().getPlugin("Vault") == null)
+		return false;
+	RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+	perms = rsp.getProvider();
+	return perms != null;
+    }
+
+    public RegionFlagManager getRegionFlagManager() {
+	return manager;
+    }
+
+    public DBConnector getDBConnector() {
+	return db;
+    }
+
+    public Permission getPermissions() {
+	return perms;
+    }
 }
 
