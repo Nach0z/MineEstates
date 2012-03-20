@@ -25,6 +25,6 @@ public class LookupCache {
 	}
 
 	public int getPages() {
-		return message.size() / 8;
+		return (message.size() / 8) + 1;
 	}
 }

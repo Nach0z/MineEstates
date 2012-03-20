@@ -82,6 +82,7 @@ public class MySqlConnector implements DBConnector {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("DELETE FROM estate_listings WHERE region_name LIKE '"+name+"'");
 			stmt.executeUpdate("INSERT INTO estate_listings(region_name, listing_type, price) VALUES ('"+name+"', 'sale', "+price+")");
+			_plugin.getRegionFlagManager().setPriceFlag(name, price);
 		} catch (Exception e) {
 			System.out.println("Problem adding the region "+name+" to sales listings");
 			System.out.println(e);

@@ -119,6 +119,11 @@ public class RegionFlagManager {
 	target.setFlag(DefaultFlag.PRICE, val);
 	_plugin.WORLDGUARD.getGlobalRegionManager().get(world).removeRegion(regionName);
 	_plugin.WORLDGUARD.getGlobalRegionManager().get(world).addRegion(target);
+                try {
+                        _plugin.WORLDGUARD.getGlobalRegionManager().get(world).save();
+                } catch (Exception e) {
+                        System.out.println(e);
+                }
 	return true;
     }
 
