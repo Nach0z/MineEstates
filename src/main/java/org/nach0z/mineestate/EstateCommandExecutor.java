@@ -76,6 +76,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 */			sendUsage(sender);
                         return true;
 		}
+
 		if(args[0].equalsIgnoreCase("search")) {
 			if(args.length%2 != 0) {
 				sender.sendMessage(preferr + "Wrong number of arguments. Usage: /estates search [sales|rents] <params> <sort param>");
@@ -297,4 +298,26 @@ public class EstateCommandExecutor implements CommandExecutor {
                         return true;
 	}
 
+/*	public boolean sendUsage(CommandSender sender, String command) {
+		ArrayList<String> ret = new ArrayList<String>();
+		command = command.toLowerCase();
+		switch (command) {
+			case "buy" :
+				ret.add(prefix + "/estates buy <region name>");
+				ret.add(prefix2 + "This command is used to buy a region off of the open market.");
+				ret.add(prefix2 + "Regions that are not on the market cannot be bought using /estates buy.");
+				ret.add(prefix2 + "Find a region using '/estates search sales' .");
+				break;
+			case "sell" :
+				ret.add(prefix + "/estates sell <region name> <price>");
+				ret.add(prefix2 + "This command is used by the owner of a region to put it up for sale on the open market.");
+				ret.add(prefix2 + "Keep in mind that once someone has bought a region, it is THEIRS. You won't get a warning.");
+				ret.add(prefix2 + "In other words, get everything you want off the lot before you put it on the market.");
+				break;
+			default:
+				ret.add(preferr + "There is no help message for that command.");
+				break;
+		}
+	}
+*/
 }

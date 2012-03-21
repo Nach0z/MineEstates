@@ -1,19 +1,27 @@
 package org.nach0z.mineestate;
+
 import com.sk89q.worldguard.*;
 import com.sk89q.worldguard.bukkit.*;
 import com.sk89q.worldguard.protection.*;
 import com.sk89q.worldguard.protection.regions.*;
 import com.sk89q.worldguard.domains.*;
 import com.sk89q.worldguard.protection.flags.*;
+
+import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.BlockVector;
+import com.sk89q.worldedit.Vector2D;
+import com.sk89q.worldedit.Vector;
 
 import java.util.Set;
+import java.util.ArrayList;
+
 import org.bukkit.*;
 import org.bukkit.plugin.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.block.Block;
 
 public class RegionFlagManager {
 	private MineEstatePlugin _plugin;
@@ -91,6 +99,7 @@ public class RegionFlagManager {
 		target.setFlag(DefaultFlag.PRICE, null);
 		_plugin.WORLDGUARD.getGlobalRegionManager().get(world).removeRegion(regionName);
 		_plugin.WORLDGUARD.getGlobalRegionManager().get(world).addRegion(target);
+		updateLockette(regionName, newOwner);
 		try {
 			_plugin.WORLDGUARD.getGlobalRegionManager().get(world).save();
 		} catch (Exception e) {
@@ -150,6 +159,28 @@ public class RegionFlagManager {
 		loc = new Location(world, max.getX(), world.getHighestBlockYAt((int)max.getX(), (int)max.getZ()), max.getZ());
 	}
 	return loc;
+    }
+
+    public void updateLockette(String regName, String newOwner) {
+	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(Bukkit.getServer().getWorld("world")).getRegion(regName);
+	CuboidRegion cuboid = new CuboidRegion(target.getMinimumPoint(), target.getMaximumPoint());
+	ArrayList<ThreadedChunkEditor> list = new ArrayList<ThreadedChunkEditor>();
+	for(Vector2D vec : cuboid.getChunks()) {
+		System.out.println(vec);
+		Chunk chunk = Bukkit.getServer().getWorld("world").getChunkAt((int)vec.getX(),(int)vec.getZ());
+		ThreadedChunkEditor tce = new ThreadedChunkEditor(cuboid, chunk, newOwner);
+		tce.start();
+	}
+
+	for(ThreadedChunkEditor tce : list) {
+		try {
+			tce.join();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	System.out.println("Finished threaded processes!");
+
     }
 
 }
