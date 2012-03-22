@@ -51,29 +51,16 @@ public class EstateCommandExecutor implements CommandExecutor {
 			return true;
 		if(!(args.length > 1)) {
 			sender.sendMessage(preferr + "Incorrect syntax: Usages include all of the following:");
-/*			sender.sendMessage(prefix2 + "/estates sell <regionName> <price>");
-			sender.sendMessage(prefix2 + "/estates buy <regionname>");
-			sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price> (Requires specific permissions!)");
-			sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sort param>");
-			sender.sendMessage(prefix2 + "/estates cancel <regionname>: Cancels the sale/lease of a region.");
-			sender.sendMessage(prefix2 + "/estates page <pagenumber> (do this command to see more pages of results, if they exist)");
-			sender.sendMessage(prefix2 + "Valid params: owner <ownername>, size <#x#> (ex. 10x10, or 14x7), price <maxprice>");
-			sender.sendMessage(prefix2 + "Valid sort params: owner, name, size, price. To sort your results, add \" sort <sortparam> \" to your query.");
-*/			sendUsage(sender);
+			sendUsage(sender);
 			return true;
 		}
 		if(!(args[0].equalsIgnoreCase("page")))
 			lookups.put(sender.getName(), null);
-		if(args[1].equalsIgnoreCase("usage")) {
-/*                        sender.sendMessage(prefix2 + "/estates sell <regionName> <price>");
-                        sender.sendMessage(prefix2 + "/estates buy <regionname>");
-                        sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price> (Requires specific permissions!)");
-                        sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sort param>");
-			sender.sendMessage(prefix2 + "/estates cancel <regionname>: Cancels the sale/lease of a region.");
-			sender.sendMessage(prefix2 + "/estates page <pagenumber> (do this command to see more pages of results, if they exist)");
-                        sender.sendMessage(prefix2 + "Valid params: owner <ownername>, size <#x#> (ex. 10x10, or 14x7), price <maxprice>");
-                        sender.sendMessage(prefix2 + "Valid sort params: owner, name, size, price. To sort your results, add \" sort <sortparam> \" to your query.");
-*/			sendUsage(sender);
+		if(args[1].equalsIgnoreCase("usage") || args[1].equalsIgnoreCase("help")) {
+			if(args.length%2 != 0)
+				sendUsage(sender);
+			else
+				sendUsage(sender, args[1]);
                         return true;
 		}
 		World world = player.getWorld();
@@ -299,26 +286,24 @@ public class EstateCommandExecutor implements CommandExecutor {
                         return true;
 	}
 
-/*	public boolean sendUsage(CommandSender sender, String command) {
+	public boolean sendUsage(CommandSender sender, String command) {
 		ArrayList<String> ret = new ArrayList<String>();
 		command = command.toLowerCase();
-		switch (command) {
-			case "buy" :
+		if(command.equalsIgnoreCase("buy")) {
 				ret.add(prefix + "/estates buy <region name>");
 				ret.add(prefix2 + "This command is used to buy a region off of the open market.");
 				ret.add(prefix2 + "Regions that are not on the market cannot be bought using /estates buy.");
 				ret.add(prefix2 + "Find a region using '/estates search sales' .");
-				break;
-			case "sell" :
+		} else if (command.equalsIgnoreCase("sell")) {
 				ret.add(prefix + "/estates sell <region name> <price>");
 				ret.add(prefix2 + "This command is used by the owner of a region to put it up for sale on the open market.");
 				ret.add(prefix2 + "Keep in mind that once someone has bought a region, it is THEIRS. You won't get a warning.");
 				ret.add(prefix2 + "In other words, get everything you want off the lot before you put it on the market.");
-				break;
-			default:
+		} else {
 				ret.add(preferr + "There is no help message for that command.");
-				break;
 		}
+		for(String str : ret)
+			sender.sendMessage(str);
+		return true;
 	}
-*/
 }
