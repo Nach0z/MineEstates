@@ -34,9 +34,9 @@ public class RegionFlagManager {
 		_plugin=plugin;
 	}
 
-    public double getRegionPrice(String regionName) {
+    public double getRegionPrice(String regionName, World world) {
 	DoubleFlag tflag = DefaultFlag.PRICE;
-	World world = Bukkit.getServer().getWorld("world");
+//	World world = Bukkit.getServer().getWorld("world");
 	ProtectedRegion testreg = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 	Double price = testreg.getFlag(tflag);
 	if(price != null)
@@ -45,8 +45,8 @@ public class RegionFlagManager {
 		return -1;
     }
 
-    public String getOwnerName(String regionName) {
-	World world = Bukkit.getServer().getWorld("world");
+    public String getOwnerName(String regionName, World world) {
+//	World world = Bukkit.getServer().getWorld("world");
 	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 	DefaultDomain owners = target.getOwners();
 	Set<String> ownerList = owners.getPlayers();
@@ -62,16 +62,16 @@ public class RegionFlagManager {
 	}
     }
 
-    public boolean existsRegion(String regionName) {
-	World world = Bukkit.getServer().getWorld("world");
+    public boolean existsRegion(String regionName, World world) {
+//	World world = Bukkit.getServer().getWorld("world");
 	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 	return (target != null);
     }
 
-    public boolean transferOwnership(String regionName, String newOwner) {
-	World world = Bukkit.getServer().getWorld("world");
+    public boolean transferOwnership(String regionName, String newOwner, World world) {
+//	World world = Bukkit.getServer().getWorld("world");
 	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
-	String currentOwner = getOwnerName(regionName);
+	String currentOwner = getOwnerName(regionName, world);
 	boolean ret;
 	if(!_plugin.getDBConnector().isForSale(regionName)) {
 		_plugin.getDBConnector().removeForSale(regionName);
@@ -79,17 +79,17 @@ public class RegionFlagManager {
 	}
 	if(currentOwner.equals("FAILED_MULTI"))
 		return false;
-	if(accounts.chargeMoney(newOwner,getRegionPrice(regionName))) {
+	if(accounts.chargeMoney(newOwner,getRegionPrice(regionName, world))) {
 		DefaultDomain newOwners = new DefaultDomain();
 		DefaultDomain curOwner = target.getOwners();
 		newOwners.addPlayer(newOwner);
 		target.setOwners(newOwners);
 		if(!currentOwner.equals("PUBLIC_DOMAIN")) {
-			if(accounts.addMoney(currentOwner, getRegionPrice(regionName))) {
+			if(accounts.addMoney(currentOwner, getRegionPrice(regionName, world))) {
 				ret = true;
 				target.setFlag(DefaultFlag.PRICE, null);
 			} else {
-				accounts.addMoney(newOwner,getRegionPrice(regionName));
+				accounts.addMoney(newOwner,getRegionPrice(regionName, world));
 				target.setOwners(curOwner);
 				_plugin.WORLDGUARD.getGlobalRegionManager().get(world).removeRegion(regionName);
 				_plugin.WORLDGUARD.getGlobalRegionManager().get(world).addRegion(target);
@@ -99,7 +99,7 @@ public class RegionFlagManager {
 		target.setFlag(DefaultFlag.PRICE, null);
 		_plugin.WORLDGUARD.getGlobalRegionManager().get(world).removeRegion(regionName);
 		_plugin.WORLDGUARD.getGlobalRegionManager().get(world).addRegion(target);
-		updateLockette(regionName, newOwner);
+		updateLockette(regionName, newOwner, world);
 		try {
 			_plugin.WORLDGUARD.getGlobalRegionManager().get(world).save();
 		} catch (Exception e) {
@@ -113,12 +113,12 @@ public class RegionFlagManager {
 
     }
 
-    public boolean setPriceFlag(String regionName, double price) {
+    public boolean setPriceFlag(String regionName, double price, World world) {
 	Double val;
 	ProtectedRegion target;
 	ProtectedRegion updated;
-	World world = Bukkit.getServer().getWorld("world");
-	if(!existsRegion(regionName))
+//	World world = Bukkit.getServer().getWorld("world");
+	if(!existsRegion(regionName, world))
 		return false;
 	if(Double.compare(price, 0.0) == 0)
 		val = null;
@@ -136,9 +136,9 @@ public class RegionFlagManager {
 	return true;
     }
 
-    public String getRegionSize(String regionName) {
-	World world = Bukkit.getServer().getWorld("world");
-	if(existsRegion(regionName) ){
+    public String getRegionSize(String regionName, World world) {
+//	World world = Bukkit.getServer().getWorld("world");
+	if(existsRegion(regionName, world) ){
 		ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 		BlockVector min = target.getMinimumPoint();
 		BlockVector max = target.getMaximumPoint();
@@ -150,10 +150,10 @@ public class RegionFlagManager {
 		return "";
     }
 
-    public Location getTPPos(String regionName) {
+    public Location getTPPos(String regionName, World world) {
 	Location loc = null;
-	World world = Bukkit.getServer().getWorld("world");
-        if(existsRegion(regionName) ){
+//	World world = Bukkit.getServer().getWorld("world");
+        if(existsRegion(regionName, world) ){
                 ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 		BlockVector max = target.getMaximumPoint();
 		loc = new Location(world, max.getX(), world.getHighestBlockYAt((int)max.getX(), (int)max.getZ()), max.getZ());
@@ -161,13 +161,13 @@ public class RegionFlagManager {
 	return loc;
     }
 
-    public void updateLockette(String regName, String newOwner) {
-	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(Bukkit.getServer().getWorld("world")).getRegion(regName);
+    public void updateLockette(String regName, String newOwner, World world) {
+	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regName);
 	CuboidRegion cuboid = new CuboidRegion(target.getMinimumPoint(), target.getMaximumPoint());
 	ArrayList<ThreadedChunkEditor> list = new ArrayList<ThreadedChunkEditor>();
 	for(Vector2D vec : cuboid.getChunks()) {
 		System.out.println(vec);
-		Chunk chunk = Bukkit.getServer().getWorld("world").getChunkAt((int)vec.getX(),(int)vec.getZ());
+		Chunk chunk = world.getChunkAt((int)vec.getX(),(int)vec.getZ());
 		ThreadedChunkEditor tce = new ThreadedChunkEditor(cuboid, chunk, newOwner);
 		tce.start();
 	}

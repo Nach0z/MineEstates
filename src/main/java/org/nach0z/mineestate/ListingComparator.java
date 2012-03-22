@@ -1,6 +1,7 @@
 package org.nach0z.mineestate;
 
 import java.util.*;
+import org.bukkit.*;
 
 public class ListingComparator implements Comparator {
 	//name, price, size, owner
@@ -9,11 +10,13 @@ public class ListingComparator implements Comparator {
 	private int[] sortSize = {3, 1, 2, 4};
 	private int[] sortPrice = {2, 1, 3, 4};
 	private int[] sortNormal = {1, 2, 3, 4};
+	private World world;
 	private String method;
 	private RegionFlagManager regions;
-	public ListingComparator(String method, MineEstatePlugin plugin) {
+	public ListingComparator(String method, MineEstatePlugin plugin, World world) {
 		this.method = method;
 		regions = plugin.getRegionFlagManager();
+		this.world = world;
 	}
 
 	public int compare(Object ob1, Object ob2) {
@@ -56,8 +59,8 @@ public class ListingComparator implements Comparator {
 	}
 
 	public int compareOwner(Listing lis1, Listing lis2) {
-		String name1 = regions.getOwnerName(lis1.name);
-                String name2 = regions.getOwnerName(lis2.name);
+		String name1 = regions.getOwnerName(lis1.name, world);
+                String name2 = regions.getOwnerName(lis2.name, world);
                 return name1.compareTo(name2);
 	}
 

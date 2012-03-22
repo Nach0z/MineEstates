@@ -76,6 +76,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 */			sendUsage(sender);
                         return true;
 		}
+		World world = player.getWorld();
 
 		if(args[0].equalsIgnoreCase("search")) {
 			if(args.length%2 != 0) {
@@ -118,7 +119,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 				}
 
 			}
-		String message = getSales(owner, price, size, sales, rents, sort);
+		String message = getSales(owner, price, size, sales, rents, sort, world);
 		String[] lines = message.split("\n");
 		sender.sendMessage(prefix + lines[0]);
 		LookupCache tmpCache = new LookupCache();
@@ -137,15 +138,15 @@ public class EstateCommandExecutor implements CommandExecutor {
 			}
 			//@TODO add in confirmation/teleportation code
 			if(args.length > 1 ) {
-				if( regions.existsRegion(args[1]) && Double.compare(regions.getRegionPrice(args[1]), 0) > 0 ) {
-					double regPrice = regions.getRegionPrice(args[1]);
-					System.out.println(args[1] +" " + regions.getRegionPrice(args[1]));
+				if( regions.existsRegion(args[1], world) && Double.compare(regions.getRegionPrice(args[1], world), 0) > 0 ) {
+					double regPrice = regions.getRegionPrice(args[1], world);
+					System.out.println(args[1] +" " + regions.getRegionPrice(args[1], world));
 					if(!accounts.hasFunds(player.getName(), regPrice)) {
 						sender.sendMessage(prefix + "You don't have enough funds to purchase this region!");
 					} else {
-						if(regions.transferOwnership(args[1], player.getName())) {
+						if(regions.transferOwnership(args[1], player.getName(), world)) {
 							sender.sendMessage(prefix + "You have successfully purchased "+args[1]+" for " + regPrice +" "+ accounts.getUnitsPlural());
-							regions.setPriceFlag(args[1], 0);
+							regions.setPriceFlag(args[1], 0, world);
 							_plugin.getDBConnector().removeForSale(args[1]);
 							return true;
 						} else {
@@ -162,9 +163,9 @@ public class EstateCommandExecutor implements CommandExecutor {
 				return true;
 			}
 			if(args.length > 2 ) {
-				if(regions.existsRegion(args[1])) {
-					if( Double.compare(Double.parseDouble(args[2]), 0) > 0 && sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1])) && regions.setPriceFlag(args[1], Double.parseDouble(args[2]))) {
-						_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]));
+				if(regions.existsRegion(args[1],world)) {
+					if( Double.compare(Double.parseDouble(args[2]), 0) > 0 && sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1], world)) && regions.setPriceFlag(args[1], Double.parseDouble(args[2]), world)) {
+						_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]), world);
 						sender.sendMessage(prefix + "Successfully added "+args[1]+" to the estate market for "+args[2]+"!");
 					} else {
 						sender.sendMessage(preferr + "Failed to add specified estate to the market: You are not the owner!");
@@ -181,8 +182,8 @@ public class EstateCommandExecutor implements CommandExecutor {
 				sender.sendMessage(preferr + "You do not have permission to sell public plots!");
 				return true;
 			}
-			if(args.length > 2 && regions.setPriceFlag(args[1], Double.parseDouble(args[2]))) {
-				_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]));
+			if(args.length > 2 && regions.setPriceFlag(args[1], Double.parseDouble(args[2]), world)) {
+				_plugin.getDBConnector().addForSale(args[1], Double.parseDouble(args[2]), world);
 				sender.sendMessage(prefix + "Successfully added "+args[1]+" to the estate market for "+args[2]+"!");
 			} else {
 				sender.sendMessage(preferr + "Incorrect syntax. Usage: /estates sellPublic <regionname> <price>");
@@ -193,10 +194,10 @@ public class EstateCommandExecutor implements CommandExecutor {
 				return true;
 			}
 			if(args.length > 1) {
-				if(regions.existsRegion(args[1]) && _plugin.getDBConnector().isForSale(args[1])) {
+				if(regions.existsRegion(args[1],world) && _plugin.getDBConnector().isForSale(args[1])) {
 					//World.getHighestBlockYAt(Location location)
 					//player.teleport(Location location)
-					Location loc = _plugin.getRegionFlagManager().getTPPos(args[1]);
+					Location loc = _plugin.getRegionFlagManager().getTPPos(args[1], world);
 					player.teleport(loc);
 				} else {
 					sender.sendMessage(prefix + "This plot is not available on the market right now.");
@@ -219,15 +220,15 @@ public class EstateCommandExecutor implements CommandExecutor {
 					sender.sendMessage(prefix2 + str);
 			}
 		} else if (args[0].equalsIgnoreCase("cancel")) {
-			if(regions.existsRegion(args[1])) {
-				if(sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1])) || player.isOp() ||perms.has(player, "estates.plot.cancelOverride")) {
+			if(regions.existsRegion(args[1],world)) {
+				if(sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1], world)) || player.isOp() ||perms.has(player, "estates.plot.cancelOverride")) {
 					if(!_plugin.getDBConnector().isForSale(args[1])) {
 						sender.sendMessage(preferr + "This plot is not on the market right now!");
 						return true;
 					}
 					_plugin.getDBConnector().removeForSale(args[1]);
 					_plugin.getDBConnector().removeForRent(args[1]);
-					_plugin.getRegionFlagManager().setPriceFlag(args[1], 0);
+					_plugin.getRegionFlagManager().setPriceFlag(args[1], 0, world);
 				} else {
 					sender.sendMessage(preferr + "You are not allowed to cancel this listing!");
 				}
@@ -238,15 +239,15 @@ public class EstateCommandExecutor implements CommandExecutor {
 		return true;
 	}
 
-	public String getSales(String owner, String strPrice, String strSize, boolean sales, boolean rents, String sort) {
+	public String getSales(String owner, String strPrice, String strSize, boolean sales, boolean rents, String sort, World world) {
 		//TODO: add in Owner/size/price search stuff.
 		//BlockVector from ProtectedRegion.getMinimumPoint/getMaximumPoint has ints for min/max X, min/max Y
 		ArrayList<Listing> listings = new ArrayList<Listing>();
 		if(rents)
-			for(Listing l : _plugin.getDBConnector().getForRent())
+			for(Listing l : _plugin.getDBConnector().getForRent(world))
 				listings.add(l);
 		if(sales)
-			for(Listing l : _plugin.getDBConnector().getForSale())
+			for(Listing l : _plugin.getDBConnector().getForSale(world))
 				listings.add(l);
 		for(int i = 0; i < listings.size(); i++) {
 			//narrow by size (increasing)
@@ -266,7 +267,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 			}
 			//
 			if(!(sort.equals(""))) {
-				Collections.sort(listings, new ListingComparator(sort, _plugin));
+				Collections.sort(listings, new ListingComparator(sort, _plugin, world));
 			}
 		}
 		if(listings.size() > 0) {

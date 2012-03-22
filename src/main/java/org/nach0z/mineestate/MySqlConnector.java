@@ -17,10 +17,13 @@ public class MySqlConnector implements DBConnector {
 	private Connection conn;
 	private Statement stmt;
 
-	public MySqlConnector(MineEstatePlugin plugin, YAMLProcessor wg_config) {
+	public MySqlConnector(MineEstatePlugin plugin, YAMLProcessor config, boolean useWGConf) {
 		_plugin = plugin;
 		try {
-			conn= DriverManager.getConnection(wg_config.getString("regions.sql.dsn"), wg_config.getString("regions.sql.username"), wg_config.getString("regions.sql.password"));
+			if(useWGConf)
+				conn= DriverManager.getConnection(config.getString("regions.sql.dsn"), config.getString("regions.sql.username"), config.getString("regions.sql.password"));
+			else
+				conn = DriverManager.getConnection(config.getString("storage.sql.dsn"), config.getString("storage.sql.username"), config.getString("storage.sql.password"));
 			Statement stmt = conn.createStatement();
 			createTables();
 			regions = _plugin.getRegionFlagManager();
@@ -32,7 +35,7 @@ public class MySqlConnector implements DBConnector {
 		}
 	}
 
-	public ArrayList<Listing> getForSale() {
+	public ArrayList<Listing> getForSale( World world) {
 		ArrayList<Listing> ret = new ArrayList<Listing>();
 		try {
 			Statement stmt = conn.createStatement();
@@ -42,9 +45,9 @@ public class MySqlConnector implements DBConnector {
 				if(rs.getString("listing_type").equalsIgnoreCase("sale")) {
 					double price = rs.getDouble("price");
 					String name = rs.getString("region_name");
-					String size = regions.getRegionSize(name);
+					String size = regions.getRegionSize(name, world);
 					//price, size, name, type
-					listing = new Listing(price, regions.getRegionSize(name), name, rs.getString("listing_type"), regions.getOwnerName(name));
+					listing = new Listing(price, regions.getRegionSize(name, world), name, rs.getString("listing_type"), regions.getOwnerName(name, world));
 					ret.add(listing);
 				}
 			}
@@ -54,7 +57,7 @@ public class MySqlConnector implements DBConnector {
 		return ret;
 	}
 
-	public ArrayList<Listing> getForRent() {
+	public ArrayList<Listing> getForRent(World world) {
                 ArrayList<Listing> ret = new ArrayList<Listing>();
                 try {
                         Statement stmt = conn.createStatement();
@@ -64,9 +67,9 @@ public class MySqlConnector implements DBConnector {
                                 if(rs.getString("listing_type").equalsIgnoreCase("rent")) {
                                         double price = rs.getDouble("price");
                                         String name = rs.getString("region_name");
-                                        String size = regions.getRegionSize(name);
+                                        String size = regions.getRegionSize(name, world);
                                         //price, size, name, type
-                                        listing = new Listing(price, regions.getRegionSize(name), name, rs.getString("type"), regions.getOwnerName(name));
+                                        listing = new Listing(price, regions.getRegionSize(name, world), name, rs.getString("type"), regions.getOwnerName(name, world));
                                         ret.add(listing);
                                 }
                         }
@@ -77,12 +80,12 @@ public class MySqlConnector implements DBConnector {
 
 	}
 
-	public boolean addForSale(String name, double price) {
+	public boolean addForSale(String name, double price, World world) {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("DELETE FROM estate_listings WHERE region_name LIKE '"+name+"'");
 			stmt.executeUpdate("INSERT INTO estate_listings(region_name, listing_type, price) VALUES ('"+name+"', 'sale', "+price+")");
-			_plugin.getRegionFlagManager().setPriceFlag(name, price);
+			_plugin.getRegionFlagManager().setPriceFlag(name, price, world);
 		} catch (Exception e) {
 			System.out.println("Problem adding the region "+name+" to sales listings");
 			System.out.println(e);

@@ -1,0 +1,292 @@
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:197: ')' expected
+				if(regions.existsRegion(args[1],world) && _plugin.getDBConnector().isForSale(args[1]), world) {
+				                                                                                     ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:197: ';' expected
+				if(regions.existsRegion(args[1],world) && _plugin.getDBConnector().isForSale(args[1]), world) {
+				                                                                                      ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:197: illegal start of expression
+				if(regions.existsRegion(args[1],world) && _plugin.getDBConnector().isForSale(args[1]), world) {
+				                                                                                            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:197: ';' expected
+				if(regions.existsRegion(args[1],world) && _plugin.getDBConnector().isForSale(args[1]), world) {
+				                                                                                             ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: illegal start of type
+		} else if (args[0].equalsIgnoreCase("page")) {
+		  ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: ';' expected
+		} else if (args[0].equalsIgnoreCase("page")) {
+		      ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: illegal start of type
+		} else if (args[0].equalsIgnoreCase("page")) {
+		          ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: ']' expected
+		} else if (args[0].equalsIgnoreCase("page")) {
+		                ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: illegal start of type
+		} else if (args[0].equalsIgnoreCase("page")) {
+		                 ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: <identifier> expected
+		} else if (args[0].equalsIgnoreCase("page")) {
+		                  ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: ';' expected
+		} else if (args[0].equalsIgnoreCase("page")) {
+		                   ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: illegal start of type
+		} else if (args[0].equalsIgnoreCase("page")) {
+		                                   ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: <identifier> expected
+		} else if (args[0].equalsIgnoreCase("page")) {
+		                                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: ';' expected
+		} else if (args[0].equalsIgnoreCase("page")) {
+		                                          ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: illegal start of type
+		} else if (args[0].equalsIgnoreCase("page")) {
+		                                           ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: <identifier> expected
+		} else if (args[0].equalsIgnoreCase("page")) {
+		                                            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: ';' expected
+		} else if (args[0].equalsIgnoreCase("page")) {
+		                                              ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: illegal start of type
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			  ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: ';' expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			          ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: invalid method declaration; return type required
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			           ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: <identifier> expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                             ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: ';' expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                              ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: illegal start of type
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                               ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: <identifier> expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: ';' expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                   ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: illegal start of type
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                         ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: ';' expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                   ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: invalid method declaration; return type required
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: <identifier> expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                                      ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: ';' expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                                       ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: illegal start of type
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: <identifier> expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                                         ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: ';' expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                                          ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: illegal start of type
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                                                  ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: <identifier> expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                                                   ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: ';' expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                                                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: illegal start of type
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                                                     ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: ';' expected
+			if(lookups.get(sender.getName()) == null || lookups.get(sender.getName()).getLines(0).size() == 0) {
+			                                                                                            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: illegal start of type
+			if(tmpCache.getLines(offset).size() == 0)
+			^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: <identifier> expected
+			if(tmpCache.getLines(offset).size() == 0)
+			                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: ';' expected
+			if(tmpCache.getLines(offset).size() == 0)
+			                     ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: illegal start of type
+			if(tmpCache.getLines(offset).size() == 0)
+			                           ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: <identifier> expected
+			if(tmpCache.getLines(offset).size() == 0)
+			                            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: ';' expected
+			if(tmpCache.getLines(offset).size() == 0)
+			                             ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: illegal start of type
+			if(tmpCache.getLines(offset).size() == 0)
+			                                 ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: <identifier> expected
+			if(tmpCache.getLines(offset).size() == 0)
+			                                  ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: ';' expected
+			if(tmpCache.getLines(offset).size() == 0)
+			                                   ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: illegal start of type
+			if(tmpCache.getLines(offset).size() == 0)
+			                                       ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: <identifier> expected
+			if(tmpCache.getLines(offset).size() == 0)
+			                                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:215: ';' expected
+			if(tmpCache.getLines(offset).size() == 0)
+			                                         ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:216: illegal start of type
+				sender.sendMessage(prefix + "No results on this page.");
+				      ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:216: <identifier> expected
+				sender.sendMessage(prefix + "No results on this page.");
+				                         ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:216: ';' expected
+				sender.sendMessage(prefix + "No results on this page.");
+				                           ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:216: illegal start of type
+				sender.sendMessage(prefix + "No results on this page.");
+				                                                      ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:216: <identifier> expected
+				sender.sendMessage(prefix + "No results on this page.");
+				                                                       ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:216: ';' expected
+				sender.sendMessage(prefix + "No results on this page.");
+				                                                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:222: class, interface, or enum expected
+		} else if (args[0].equalsIgnoreCase("cancel")) {
+		  ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:227: class, interface, or enum expected
+						return true;
+						^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:228: class, interface, or enum expected
+					}
+					^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:230: class, interface, or enum expected
+					_plugin.getDBConnector().removeForRent(args[1], world);
+					^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:231: class, interface, or enum expected
+					_plugin.getRegionFlagManager().setPriceFlag(args[1], 0);
+					^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:232: class, interface, or enum expected
+				} else {
+				^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:234: class, interface, or enum expected
+				}
+				^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:237: class, interface, or enum expected
+			}
+			^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:240: class, interface, or enum expected
+	}
+	^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:242: class, interface, or enum expected
+	public String getSales(String owner, String strPrice, String strSize, boolean sales, boolean rents, String sort, World world) {
+	       ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:246: class, interface, or enum expected
+		if(rents)
+		^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:249: class, interface, or enum expected
+		if(sales)
+		^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:252: class, interface, or enum expected
+		for(int i = 0; i < listings.size(); i++) {
+		^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:252: class, interface, or enum expected
+		for(int i = 0; i < listings.size(); i++) {
+		               ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:252: class, interface, or enum expected
+		for(int i = 0; i < listings.size(); i++) {
+		                                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:256: class, interface, or enum expected
+				i--;
+				^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:257: class, interface, or enum expected
+			}
+			^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:261: class, interface, or enum expected
+				i--;
+				^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:262: class, interface, or enum expected
+			}
+			^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:266: class, interface, or enum expected
+				i--;
+				^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:267: class, interface, or enum expected
+			}
+			^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:271: class, interface, or enum expected
+			}
+			^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:275: class, interface, or enum expected
+			ret += "Name:           Price:     Size:    Owner:";
+			^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:276: class, interface, or enum expected
+			for(Listing lis : listings)
+			^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:278: class, interface, or enum expected
+			return ret;
+			^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:279: class, interface, or enum expected
+		} else
+		^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:281: class, interface, or enum expected
+	}
+	^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:283: class, interface, or enum expected
+	public Boolean isGreaterSize(String test, String target) {
+	       ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:285: class, interface, or enum expected
+                String[] lis2pair = target.split("x");
+                ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:286: class, interface, or enum expected
+		return (Integer.parseInt(lis1pair[1]) >= Integer.parseInt(lis2pair[1]) && Integer.parseInt(lis1pair[0]) >= Integer.parseInt(lis2pair[0]));
+		^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:288: class, interface, or enum expected
+	}
+	^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:290: class, interface, or enum expected
+	public boolean sendUsage(CommandSender sender) {
+	       ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:292: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "/estates buy <regionname>");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:293: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price> (Requires specific permissions!)");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:294: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sort param>");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:295: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "/estates cancel <regionname>: Cancels the sale/lease of a region.");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:296: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "/estates page <pagenumber> (do this command to see more pages of results, if they exist)");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:297: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "Valid params: owner <ownername>, size <#x#> (ex. 10x10, or 14x7), price <maxprice>");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:298: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "Valid sort params: owner, name, size, price. To sort your results, add \" sort <sortparam> \" to your query.");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:299: class, interface, or enum expected
+                        return true;
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:300: class, interface, or enum expected
+	}
+	^
+97 errors

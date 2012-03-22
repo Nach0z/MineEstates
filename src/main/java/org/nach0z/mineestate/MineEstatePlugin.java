@@ -21,11 +21,14 @@ import net.milkbowl.vault.permission.Permission;
 
 import java.util.*;
 import java.io.*;
+import java.util.zip.*;
+import java.util.jar.*;
 
 public class MineEstatePlugin extends JavaPlugin implements Listener{
     private Economy econ = null;
     private Permission perms = null;
     private RegionFlagManager manager;
+    private YAMLProcessor config;
     private YAMLProcessor wg_config;
     private WorldGuardPlugin worldguard_plugin;
 //    private ArrayList<String> available;
@@ -63,7 +66,7 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 		System.out.println("[MineEstates] WorldGuard using MySQL Database version.");
 	}
 */
-
+	createDefaultConfig(new File(getDataFolder(), "config.yml"), "config.yml");
 	wg_config = new YAMLProcessor(new File(WORLDGUARD.getDataFolder(), "config.yml"), true, YAMLFormat.EXTENDED);
 	try {
 		wg_config.load();
@@ -74,16 +77,20 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 		return;
 	}
 
-	if (!wg_config.getBoolean("regions.sql.use")) {
-		System.out.println("[FATAL ERROR] MineEstates requires WorldGuard to be using the MySQL Database method currently. Later releases may allow non-MySQL databases.");
+	if (!(config.getBoolean("storage.sql.use"))) {
+		System.out.println("[FATAL ERROR] MineEstates currently requires the use of a MySQL database. Please configure your config.yml to use MySQL.");
 		getServer().getPluginManager().disablePlugin(this);
 		return;
-	 } else {
-
+	} else if((config.getBoolean("storage.sql.use-worldguard") && !wg_config.getBoolean("regions.sql.use"))) {
+		System.out.println("[FATAL ERROR] WorldGuard must be using a  MySQL database if storage.sql.use-worldguard is set to true in MineEstats' config.yml");
+		getServer().getPluginManager().disablePlugin(this);
+	} else {
 		EstateCommandExecutor cmd = new EstateCommandExecutor(this);
 		getCommand("estates").setExecutor(cmd);
-
-		db = new MySqlConnector(this, wg_config);
+		if(config.getBoolean("storage.sql.use-worldguard"))
+			db = new MySqlConnector(this, wg_config, true);
+		else
+			db = new MySqlConnector(this, config, false);
 		//available = db.getAvailable();
 	}
     }
@@ -117,5 +124,56 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
     public Permission getPermissions() {
 	return perms;
     }
+
+    public void createDefaultConfig(File cfg, String defaultName) {
+	File parent=cfg.getParentFile();
+	if(!parent.exists()) {
+		parent.mkdirs();
+	}
+
+	if(!cfg.exists()) {
+
+		InputStream input = null;
+		try {
+			JarFile jar = new JarFile(getFile());
+			ZipEntry orig = jar.getEntry(defaultName);
+			input = jar.getInputStream(orig);
+			config = new YAMLProcessor(cfg, true, YAMLFormat.EXTENDED);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		if(input != null) {
+			FileOutputStream out = null;
+			try {
+				out = new FileOutputStream(cfg);
+				byte[] buf = new byte[8192];
+				int length = 0;
+				while((length = input.read(buf)) > 0 ) {
+					out.write(buf, 0, length);
+				}
+			} catch (Exception f) {
+				System.out.println(f);
+			} finally {
+				try {
+					if(input != null)
+						input.close();
+				} catch (Exception ignore) {
+				}
+				try {
+					if(out != null)
+						out.close();
+				}catch (Exception ignore) {
+				}
+			}
+		}
+	}
+	config = new YAMLProcessor(cfg, true, YAMLFormat.EXTENDED);
+	try {
+		config.load();
+	} catch (Exception e) {
+		System.out.println(e);
+	}
+    }
+
 }
 
