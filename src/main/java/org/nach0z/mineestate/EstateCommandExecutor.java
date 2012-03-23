@@ -49,20 +49,21 @@ public class EstateCommandExecutor implements CommandExecutor {
 
 		if(!command.getName().equalsIgnoreCase("estates"))
 			return true;
-		if(!(args.length > 1)) {
-			sender.sendMessage(preferr + "Incorrect syntax: Usages include all of the following:");
-			sendUsage(sender);
-			return true;
-		}
 		if(!(args[0].equalsIgnoreCase("page")))
 			lookups.put(sender.getName(), null);
-		if(args[1].equalsIgnoreCase("usage") || args[1].equalsIgnoreCase("help")) {
+		if(args[0].equalsIgnoreCase("usage") || args[0].equalsIgnoreCase("help")) {
 			if(args.length%2 != 0)
 				sendUsage(sender);
 			else
 				sendUsage(sender, args[1]);
                         return true;
 		}
+		if(!(args.length > 1)) {
+			sender.sendMessage(preferr + "Incorrect syntax: Usages include all of the following:");
+			sendUsage(sender);
+			return true;
+		}
+
 		World world = player.getWorld();
 
 		if(args[0].equalsIgnoreCase("search")) {
@@ -71,11 +72,11 @@ public class EstateCommandExecutor implements CommandExecutor {
 				sender.sendMessage(preferr + "See /estates usage for a full description of params and sorting.");
 			}
 			for(int i = 0; i< args.length; i++) {
-				if(args[i].equalsIgnoreCase("owner") && i < args.length-1 && !(owner.length() > 0) && i > sortIndex)
+				if(args[i].equalsIgnoreCase("owner") && i < args.length-1 && !args[i-1].equalsIgnoreCase("sort"))
 					owner = args[i+1];
-				if(args[i].equalsIgnoreCase("size") && i < args.length-1 && !(size.length() > 0) && i > sortIndex)
+				if(args[i].equalsIgnoreCase("size") && i < args.length-1 && !args[i-1].equalsIgnoreCase("sort"))
 					size = args[i+1];
-				if(args[i].equalsIgnoreCase("price") && i < args.length-1 && !(price.length() > 0) && i > sortIndex)
+				if(args[i].equalsIgnoreCase("price") && i < args.length-1 && !args[i-1].equalsIgnoreCase("sort"))
 					price = args[i+1];
 				if(args[i].equalsIgnoreCase("sort") && i < args.length-1) {
 					if(args[i+1].contains("owner")) {
@@ -277,12 +278,10 @@ public class EstateCommandExecutor implements CommandExecutor {
 	public boolean sendUsage(CommandSender sender) {
 	                sender.sendMessage(prefix2 + "/estates sell <regionName> <price>");
                         sender.sendMessage(prefix2 + "/estates buy <regionname>");
-                        sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price> (Requires specific permissions!)");
+                        sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price>");
                         sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sort param>");
-                        sender.sendMessage(prefix2 + "/estates cancel <regionname>: Cancels the sale/lease of a region.");
-                        sender.sendMessage(prefix2 + "/estates page <pagenumber> (do this command to see more pages of results, if they exist)");
-                        sender.sendMessage(prefix2 + "Valid params: owner <ownername>, size <#x#> (ex. 10x10, or 14x7), price <maxprice>");
-                        sender.sendMessage(prefix2 + "Valid sort params: owner, name, size, price. To sort your results, add \" sort <sortparam> \" to your query.");
+                        sender.sendMessage(prefix2 + "/estates cancel <regionname>");
+                        sender.sendMessage(prefix2 + "/estates page <pagenumber>");
                         return true;
 	}
 
@@ -290,15 +289,38 @@ public class EstateCommandExecutor implements CommandExecutor {
 		ArrayList<String> ret = new ArrayList<String>();
 		command = command.toLowerCase();
 		if(command.equalsIgnoreCase("buy")) {
-				ret.add(prefix + "/estates buy <region name>");
-				ret.add(prefix2 + "This command is used to buy a region off of the open market.");
-				ret.add(prefix2 + "Regions that are not on the market cannot be bought using /estates buy.");
-				ret.add(prefix2 + "Find a region using '/estates search sales' .");
+			ret.add(prefix + "/estates buy <region name>");
+			ret.add(prefix2 + "This command is used to buy a region off of the open market.");
+			ret.add(prefix2 + "Regions that are not on the market cannot be bought using /estates buy.");
+			ret.add(prefix2 + "Find a region using '/estates search sales' .");
 		} else if (command.equalsIgnoreCase("sell")) {
-				ret.add(prefix + "/estates sell <region name> <price>");
-				ret.add(prefix2 + "This command is used by the owner of a region to put it up for sale on the open market.");
-				ret.add(prefix2 + "Keep in mind that once someone has bought a region, it is THEIRS. You won't get a warning.");
-				ret.add(prefix2 + "In other words, get everything you want off the lot before you put it on the market.");
+			ret.add(prefix + "/estates sell <region name> <price>");
+			ret.add(prefix2 + "This command is used by the owner of a region to put it up for sale on the open market.");
+			ret.add(prefix2 + "Keep in mind that once someone has bought a region, it is THEIRS. You won't get a warning.");
+			ret.add(prefix2 + "In other words, get everything you want off the lot before you put it on the market.");
+		} else if (command.equalsIgnoreCase("search")) {
+			ret.add(prefix + "/estates search [type] <param> <sortparam>");
+			ret.add(prefix2 + "This command is used to search the open market for regions.");
+			ret.add(prefix2 + "[type] MUST be specified, and must be either \"sales\" or \"rents\" ");
+			ret.add(prefix2 + "Params are: size, owner, price");
+			ret.add(prefix2 + "Sort params are: owner, name, size, price");
+			ret.add(prefix2 + "See "+ChatColor.RED+"/estates help flags "+ChatColor.YELLOW+"for more information.");
+		} else if (command.equalsIgnoreCase("sellpublic")) {
+			ret.add(prefix + "/estates sellpublic <regionname> <price>");
+			ret.add(prefix2 + "Use this command to put a region on the market without a previous owner.");
+			ret.add(prefix2 + "This command is for admin use, to create new regions and put them on the market without");
+			ret.add(prefix2 + "the money being given to them for the purchase.");
+			ret.add(prefix2 + "Use "+ChatColor.RED+"/estates sell"+ChatColor.YELLOW+" to sell your own plots.");
+		} else if (command.equalsIgnoreCase("help")) {
+			ret.add(prefix + "/estates help <help topic>");
+			ret.add(prefix2 + "Use this to see the usage of each command");
+			ret.add(prefix2 + "Help topics are: sell, sellpublic, search, buy, and flags");
+		} else if (command.equalsIgnoreCase("help")) {
+			ret.add(prefix + "/estates search flag detail");
+			ret.add(prefix2 + "owner <ownername> : Shows only results owned by <ownername>");
+			ret.add(prefix2 + "size LxW : shows only sizes longer than L and wider than W. try 10x10.");
+			ret.add(prefix2 + "price <number> : shows only plots less expensive than <number>");
+			ret.add(prefix2 + "sort <flag> : sorts by either name, size, or price."); 
 		} else {
 				ret.add(preferr + "There is no help message for that command.");
 		}

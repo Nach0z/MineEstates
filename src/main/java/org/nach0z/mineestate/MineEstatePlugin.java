@@ -45,6 +45,8 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 //	System.out.println(getServer().getPluginManager().getPlugin("WorldGuard"));
 	Plugin got_plugin = getServer().getPluginManager().getPlugin("WorldGuard");
 	manager = new RegionFlagManager(this);
+	createDefaultConfig(new File(getDataFolder(), "config.yml"), "config.yml");
+
 	if(got_plugin instanceof WorldGuardPlugin) {
 		worldguard_plugin = (WorldGuardPlugin) got_plugin;
 		WORLDGUARD = worldguard_plugin;
@@ -66,7 +68,6 @@ public class MineEstatePlugin extends JavaPlugin implements Listener{
 		System.out.println("[MineEstates] WorldGuard using MySQL Database version.");
 	}
 */
-	createDefaultConfig(new File(getDataFolder(), "config.yml"), "config.yml");
 	wg_config = new YAMLProcessor(new File(WORLDGUARD.getDataFolder(), "config.yml"), true, YAMLFormat.EXTENDED);
 	try {
 		wg_config.load();
