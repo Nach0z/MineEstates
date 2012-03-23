@@ -154,9 +154,24 @@ public class RegionFlagManager {
 	Location loc = null;
 //	World world = Bukkit.getServer().getWorld("world");
         if(existsRegion(regionName, world) ){
+		int blockIndex = 0;
                 ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 		BlockVector max = target.getMaximumPoint();
-		loc = new Location(world, max.getX(), world.getHighestBlockYAt((int)max.getX(), (int)max.getZ()), max.getZ());
+		int x = (int) max.getX();
+		int z = (int) max.getZ();
+		for(int i = 1; i < 256 ; i++) {
+			Block bl = world.getBlockAt(x,i,z);
+			Vector blvec = new Vector(bl.getX(), bl.getY(), bl.getZ());
+			if(world.getBlockAt(x, i, z).getTypeId() == 0 && world.getBlockAt(x,i+1,z).getTypeId() == 0 && !((world.getBlockAt(x, i-1,z).getTypeId() == 10) || (world.getBlockAt(x,i-1,z).getTypeId() == 11) && !(world.getBlockAt(x,i-1,z).getTypeId() == 0)) && target.contains(blvec))
+				blockIndex = i;
+		}
+
+
+		if(blockIndex > 0 ) {
+			loc = new Location(world, new Double(x) + 0.5, blockIndex, new Double(z)+0.5);
+		} else {
+			loc = new Location(world, new Double(x) + 0.5, world.getHighestBlockYAt(x,z), new Double(z) + 0.5);
+		}
 	}
 	return loc;
     }
