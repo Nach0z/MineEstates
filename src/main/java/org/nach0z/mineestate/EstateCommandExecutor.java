@@ -186,7 +186,10 @@ public class EstateCommandExecutor implements CommandExecutor {
 					//World.getHighestBlockYAt(Location location)
 					//player.teleport(Location location)
 					Location loc = _plugin.getRegionFlagManager().getTPPos(args[1], world);
-					player.teleport(loc);
+					if(loc != null)
+						player.teleport(loc);
+					else
+						sender.sendMessage(preferr + "There was no safe place to teleport to inside the region.");
 				} else {
 					sender.sendMessage(prefix + "This plot is not available on the market right now.");
 				}

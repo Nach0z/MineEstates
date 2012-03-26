@@ -152,21 +152,41 @@ public class RegionFlagManager {
 
     public Location getTPPos(String regionName, World world) {
 	Location loc = null;
+	int blockIndex = -1;
 //	World world = Bukkit.getServer().getWorld("world");
         if(existsRegion(regionName, world) ){
-		int blockIndex = -1;
                 ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 		BlockVector min = target.getMinimumPoint();
+		BlockVector max = target.getMaximumPoint();
+		int maxX = (int) max.getX();
+		int maxZ = (int) max.getZ();
 		int x = (int) min.getX();
 		int z = (int) min.getZ();
 
-		while(blockIndex == -1) {
-			blockIndex = getSafeBlock(x++, z++, world, target);
+//		while(blockIndex == -1 && z < ((int) min.getZ() + 14)) {
+//			blockIndex = getSafeBlock(x, z++, world, target);
+//		}
+		int i = x;
+		int j = z;
+		for(x = (int) min.getX(); x < maxX; x++) {
+			for(z = (int) min.getZ(); z < maxZ; z++) {
+				if(blockIndex == -1) {
+					blockIndex = getSafeBlock(x,z,world,target);
+					i = x;
+					j = z;
+				}
+				System.out.println(x+" "+blockIndex+" "+z);
+			}
 		}
 
-		loc = new Location(world, new Double(x) - 0.5, blockIndex, new Double(z) - 0.5);
+
+
+		loc = new Location(world, new Double(i) + 0.5, blockIndex, new Double(j) + 0.5);
 	}
-	return loc;
+	if(blockIndex != -1)
+		return loc;
+	else
+		return null;
     }
 
     public int getSafeBlock(int x, int z, World world, ProtectedRegion target) {
