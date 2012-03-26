@@ -49,18 +49,10 @@ public class RegionFlagManager {
 	LocationFlag lFlag = DefaultFlag.TELE_LOC;
 	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 	com.sk89q.worldedit.Location loc = target.getFlag(lFlag);
-	if(loc == null)
-		return null;
-	com.sk89q.worldedit.Vector vec = loc.getPosition();
-	Location loc2;
-	String worldName = loc.getWorld().getName();
-	double x = vec.getX();
-	double y = vec.getY();
-	double z = vec.getZ();
-	World wrld = Bukkit.getServer().getWorld(worldName);
-	loc2 = new Location(wrld, x, y, z);
+	com.sk891.worldedit.Vector vec = loc.getPosition();
+	Location lc2;
 
-	return loc2;
+	return loc;
     }
 
     public String getOwnerName(String regionName, World world) {
@@ -201,7 +193,7 @@ public class RegionFlagManager {
 			loc = new Location(world, new Double(i) + 0.5, blockIndex, new Double(j) + 0.5);
 		}
 	}
-	if(blockIndex != -1 || loc != null)
+	if(blockIndex != -1)
 		return loc;
 	else
 		return null;
