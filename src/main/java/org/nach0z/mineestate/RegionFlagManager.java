@@ -162,7 +162,12 @@ public class RegionFlagManager {
 		for(int i = 1; i < 256 ; i++) {
 			Block bl = world.getBlockAt(x,i,z);
 			Vector blvec = new Vector(bl.getX(), bl.getY(), bl.getZ());
-			if(world.getBlockAt(x, i, z).getTypeId() == 0 && world.getBlockAt(x,i+1,z).getTypeId() == 0 && !((world.getBlockAt(x, i-1,z).getTypeId() == 10) || (world.getBlockAt(x,i-1,z).getTypeId() == 11) && !(world.getBlockAt(x,i-1,z).getTypeId() == 0)) && target.contains(blvec))
+			boolean b1 = (world.getBlockAt(x,i,z).getTypeId() == 0);
+			boolean b2 = (world.getBlockAt(x,i+1,z).getTypeId() == 0);
+			boolean b3 = (world.getBlockAt(x,i-1,z).getTypeId() == 10);
+			boolean b4 = (world.getBlockAt(x,i-1,z).getTypeId() == 11);
+			boolean b5 = (world.getBlockAt(x,i-1,z).getTypeId() == 0);
+			if(b1 && b2 && !(b3 || b4 || b5) && target.contains(blvec))
 				blockIndex = i;
 		}
 
