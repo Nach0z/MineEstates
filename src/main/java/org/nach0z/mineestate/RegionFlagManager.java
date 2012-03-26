@@ -196,10 +196,20 @@ public class RegionFlagManager {
                 Vector blvec = new Vector(bl.getX(), bl.getY(), bl.getZ());
                 boolean b1 = (world.getBlockAt(x,i,z).getTypeId() == 0);
                 boolean b2 = (world.getBlockAt(x,i+1,z).getTypeId() == 0);
-                boolean b3 = (world.getBlockAt(x,i-1,z).getTypeId() == 10);
-                boolean b4 = (world.getBlockAt(x,i-1,z).getTypeId() == 11);
-                boolean b5 = (world.getBlockAt(x,i-1,z).getTypeId() == 0);
-                if(b1 && b2 && !(b3 || b4 || b5) && target.contains(blvec))
+		int floorBlockId = world.getBlockAt(x,i-1,z).getTypeId();
+                boolean b3 = (floorBlockId == 10);
+                boolean b4 = (floorBlockId == 11);
+                boolean b5 = (floorBlockId == 0);
+		boolean b6 = (floorBlockId == 81);
+		boolean b7 = (floorBlockId == 51);
+		boolean b8 = (floorBlockId == 70);
+		boolean b9 = (floorBlockId == 72);
+		boolean b10 = (floorBlockId == 77);
+		boolean b11 = (floorBlockId == 50);
+		boolean b12 = (floorBlockId == 75);
+		boolean b13 = (floorBlockId == 76);
+
+                if(b1 && b2 && !(b3 || b4 || b5 || b6 || b7 || b8 || b9 || b10 || b11 || b12 || b13) && target.contains(blvec))
                         blockIndex = i;
         }
 	return blockIndex;
