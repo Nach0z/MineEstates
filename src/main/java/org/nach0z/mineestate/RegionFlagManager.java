@@ -154,32 +154,39 @@ public class RegionFlagManager {
 	Location loc = null;
 //	World world = Bukkit.getServer().getWorld("world");
         if(existsRegion(regionName, world) ){
-		int blockIndex = 0;
+		int blockIndex = -1;
                 ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
-		BlockVector max = target.getMaximumPoint();
-		int x = (int) max.getX();
-		int z = (int) max.getZ();
-		for(int i = 1; i < 256 ; i++) {
-			Block bl = world.getBlockAt(x,i,z);
-			Vector blvec = new Vector(bl.getX(), bl.getY(), bl.getZ());
-			boolean b1 = (world.getBlockAt(x,i,z).getTypeId() == 0);
-			boolean b2 = (world.getBlockAt(x,i+1,z).getTypeId() == 0);
-			boolean b3 = (world.getBlockAt(x,i-1,z).getTypeId() == 10);
-			boolean b4 = (world.getBlockAt(x,i-1,z).getTypeId() == 11);
-			boolean b5 = (world.getBlockAt(x,i-1,z).getTypeId() == 0);
-			if(b1 && b2 && !(b3 || b4 || b5) && target.contains(blvec))
-				blockIndex = i;
+		BlockVector min = target.getMinimumPoint();
+		int x = (int) min.getX();
+		int z = (int) min.getZ();
+
+		while(blockIndex == -1) {
+			blockIndex = getSafeBlock(x++, z++, world, target);
 		}
 
-
-		if(blockIndex > 0 ) {
-			loc = new Location(world, new Double(x) + 0.5, blockIndex, new Double(z)+0.5);
-		} else {
-			loc = new Location(world, new Double(x) + 0.5, world.getHighestBlockYAt(x,z), new Double(z) + 0.5);
-		}
+		loc = new Location(world, new Double(x) - 0.5, blockIndex, new Double(z) - 0.5);
 	}
 	return loc;
     }
+
+    public int getSafeBlock(int x, int z, World world, ProtectedRegion target) {
+	int blockIndex = -1;
+	for(int i = 1; i < 256 ; i++) {
+                Block bl = world.getBlockAt(x,i,z);
+                Vector blvec = new Vector(bl.getX(), bl.getY(), bl.getZ());
+                boolean b1 = (world.getBlockAt(x,i,z).getTypeId() == 0);
+                boolean b2 = (world.getBlockAt(x,i+1,z).getTypeId() == 0);
+                boolean b3 = (world.getBlockAt(x,i-1,z).getTypeId() == 10);
+                boolean b4 = (world.getBlockAt(x,i-1,z).getTypeId() == 11);
+                boolean b5 = (world.getBlockAt(x,i-1,z).getTypeId() == 0);
+                if(b1 && b2 && !(b3 || b4 || b5) && target.contains(blvec))
+                        blockIndex = i;
+        }
+	return blockIndex;
+
+    }
+
+
 
     public void updateLockette(String regName, String newOwner, World world) {
 	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regName);
