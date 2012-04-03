@@ -49,6 +49,10 @@ public class EstateCommandExecutor implements CommandExecutor {
 
 		if(!command.getName().equalsIgnoreCase("estates"))
 			return true;
+		if(!(args.length > 1)) {
+			sendUsage(sender);
+			return true;
+		}
 		if(!(args[0].equalsIgnoreCase("page")))
 			lookups.put(sender.getName(), null);
 		if(args[0].equalsIgnoreCase("usage") || args[0].equalsIgnoreCase("help")) {
@@ -282,7 +286,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 	                sender.sendMessage(prefix2 + "/estates sell <regionName> <price>");
                         sender.sendMessage(prefix2 + "/estates buy <regionname>");
                         sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price>");
-                        sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sort param>");
+                        sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sortparam>");
                         sender.sendMessage(prefix2 + "/estates cancel <regionname>");
                         sender.sendMessage(prefix2 + "/estates page <pagenumber>");
                         return true;
