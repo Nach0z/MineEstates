@@ -181,7 +181,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 				sender.sendMessage(preferr + "Incorrect syntax. Usage: /estates sellPublic <regionname> <price>");
 			}
 		} else if (args[0].equalsIgnoreCase("goto")) {
-			if((!perms.has(player, "estates.plots.goto") || !perms.has(player, "estates.plots.buy") ) && !player.isOp()) {
+			if((!perms.has(player, "estates.plots.goto")) && !player.isOp()) {
 				sender.sendMessage(preferr + "You do not have permission to goto plots!");
 				return true;
 			}
