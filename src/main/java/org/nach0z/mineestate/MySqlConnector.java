@@ -124,10 +124,32 @@ public class MySqlConnector implements DBConnector {
 		}
 
 	}
+
+	public ArrayList<Listing> getTenants(World world) {
+		ArrayList<Listing> ret = new ArrayList<Listing>();
+        try {
+            Statement stmt = conn.createStatement();
+            Listing listing;
+            ResultSet rs = stmt.executeQuery("SELECT * FROM estate_tenants");
+            while(rs.next()) {
+                double price = rs.getDouble("price");
+                String name = rs.getString("region_name");
+                String size = regions.getRegionSize(name, world);
+                //region_name, tenant, price
+                listing = new Listing(price, regions.getRegionSize(name, world), name, "rent", rs.getString("tenant"));
+                ret.add(listing);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return ret;
+	}
+
 	public void createTables() {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS estate_listings ( region_name VARCHAR(64), listing_type VARCHAR(10), price DOUBLE(16,2))");
+			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS estate_tenants ( region_name VARCHAR(64), tenant VARCHAR(32), price DOUBLE(16,2))");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
