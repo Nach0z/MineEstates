@@ -43,6 +43,10 @@ public class FileDBConnector implements DBConnector {
 		return new ArrayList<Listing>();
 	}
 
+	public ArrayList<Listing> getTenants(World world) {
+		return new ArrayList<Listing>();
+	}
+
 	public boolean addForSale(String regionName, double price, World world) {
 
 		return true;

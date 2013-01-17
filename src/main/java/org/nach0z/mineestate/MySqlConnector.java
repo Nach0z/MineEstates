@@ -135,8 +135,8 @@ public class MySqlConnector implements DBConnector {
                 double price = rs.getDouble("price");
                 String name = rs.getString("region_name");
                 String size = regions.getRegionSize(name, world);
-                //region_name, tenant, price
-                listing = new Listing(price, regions.getRegionSize(name, world), name, "rent", rs.getString("tenant"));
+                //region_name, tenant, price, time_ordered
+                listing = new Listing(price, regions.getRegionSize(name, world), name, rs.getString("time_ordered"), rs.getString("tenant"));
                 ret.add(listing);
             }
         } catch (Exception e) {
@@ -149,7 +149,7 @@ public class MySqlConnector implements DBConnector {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS estate_listings ( region_name VARCHAR(64), listing_type VARCHAR(10), price DOUBLE(16,2))");
-			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS estate_tenants ( region_name VARCHAR(64), tenant VARCHAR(32), price DOUBLE(16,2))");
+			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS estate_tenants ( region_name VARCHAR(64), tenant VARCHAR(32), price DOUBLE(16,2), time_ordered VARCHAR(12))");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
