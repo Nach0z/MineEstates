@@ -11,15 +11,18 @@ public interface DBConnector {
 
 	public ArrayList<Listing> getTenants(World world);
 
+	public boolean addTenant(String regionName, String tenantName, int regionPrice);
+
+	public boolean removeTenant(String regionName, World world);
+
 	public boolean addForSale(String regionName, double price, World world);
 
-	public boolean addForRent(String regionName, double price);
+	public boolean addForRent(String regionName, double price, World world);
 
 	public boolean removeForSale(String regionName);
 
 	public boolean removeForRent(String regionName);
 
 	public boolean isForSale(String regionName);
-
 
 }

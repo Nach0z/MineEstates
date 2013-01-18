@@ -94,8 +94,18 @@ public class MySqlConnector implements DBConnector {
 		return true;
 	}
 
-	public boolean addForRent(String name, double price) {
-		return true;
+	public boolean addForRent(String name, double price, World world) {
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("DELETE FROM estate_listings WHERE region_name LIKE '"+name+"'");
+            stmt.executeUpdate("INSERT INTO estate_listings(region_name, listing_type, price) VALUES ('"+name+"', 'rent', "+price+")");
+            _plugin.getRegionFlagManager().setPriceFlag(name, price, world);
+        } catch (Exception e) {
+            System.out.println("Problem adding the region "+name+" to rental listings");
+            System.out.println(e);
+            return false;
+        }
+        return true;
 	}
 
 	public boolean removeForSale(String name) {
@@ -110,7 +120,14 @@ public class MySqlConnector implements DBConnector {
 	}
 
 	public boolean removeForRent(String name) {
-		return true;
+		        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("DELETE FROM estate_listings WHERE region_name LIKE '"+name+"'");
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
 	}
 
 	public boolean isForSale(String name) {
@@ -144,6 +161,40 @@ public class MySqlConnector implements DBConnector {
         }
         return ret;
 	}
+
+	public boolean addTenant(String regionName, String tenantName, int regionPrice) {
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("DELETE FROM estate_listings WHERE region_name LIKE '"+regionName+"'");
+            stmt.executeUpdate("INSERT INTO estate_tenants(region_name, tenant, price) VALUES ('"+regionName+"', '"+tenantName+"', "+regionPrice+")");
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
+	}
+
+    public boolean removeTenant(String regionName, World world) {
+        try {
+            Statement stmt = conn.createStatement();
+			Listing listing;
+            ResultSet rs = stmt.executeQuery("SELECT * FROM estate_tenants");
+			double price = 0;
+			String size;
+            while(rs.next()) {
+                price = rs.getDouble("price");
+                size = regions.getRegionSize(regionName, world);
+                //region_name, tenant, price, time_ordered
+                listing = new Listing(price, regions.getRegionSize(regionName, world), regionName, rs.getString("time_ordered"), rs.getString("tenant"));
+			}
+            stmt.executeUpdate("DELETE FROM estate_tenants WHERE region_name LIKE '"+regionName+"'");
+            stmt.executeUpdate("INSERT INTO estate_listings(region_name, listing_type, price) VALUES ('"+regionName+"', 'rent', "+price+")");
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
+    }
 
 	public void createTables() {
 		try {
