@@ -1,4 +1,0 @@
-#!/bin/bash
-
-cd target/ && rm MineEstates.jar && jar cf MineEstates.jar *
-

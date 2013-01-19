@@ -18,11 +18,12 @@ import org.bukkit.entity.Player;
 import net.milkbowl.vault.permission.Permission;
 
 public class EstateCommandExecutor implements CommandExecutor {
+	private World world;
     private RegionFlagManager regions = null;
     private MineEstatePlugin _plugin = null;
     private AccountHandler accounts = null;
     private Permission perms = null;
-    private Map<String, LookupCache> lookups;;
+    private Map<String, LookupCache> lookups;
     private String prefix = ChatColor.GREEN + "[Estates] " + ChatColor.GOLD;
     private String preferr = ChatColor.GREEN + "[Estates] "+ChatColor.RED;
     private String prefix2 = ChatColor.GREEN + "[Estates] "+ChatColor.YELLOW;
@@ -37,6 +38,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command commandStr, String label, String[] args) {
         Player player = null;
+		world = player.getWorld;
         String owner = "";
         String price = "";
         String size = "";
@@ -55,5 +57,29 @@ public class EstateCommandExecutor implements CommandExecutor {
         }
 		//Sets up a command enum for switch cases. Much faster than the old method.
 		Command command = Command.fromString(commandStr);
+		if(!command.satisfied(args)) {
+			sendUsage(sender, args[1]);
+			return true;
+		}
+		boolean ret = false;
+		switch(command) {
+			case PAGE : ret = page(args); break;
+			case TP : ret = tp(args); break;
+			case USAGE : ret = sendUsage(args); break;
+			case SEARCH : ret = search(args); lookups.put(sender, null); break;
+			case BUY : ret = buy(args); break;
+			case SELL : ret = sell(args); break;
+			case SELLPUBLIC : ret = sellpublic(args); break;
+			case CANCEL : ret = cancel(args); break;
+			default:
+				break;
+		}
+		return ret;
 	}
+
+	private boolean page(String args[]) {
+	}
+
+	
+
 }
