@@ -53,7 +53,7 @@ public class EstateCommandExecutor implements CommandExecutor {
             sendUsage(sender);
             return true;
         }
+		//Sets up a command enum for switch cases. Much faster than the old method.
 		Command command = Command.fromString(commandStr);
-		System.out.println(command);
 	}
 }
