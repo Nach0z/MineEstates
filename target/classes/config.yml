@@ -1,0 +1,10 @@
+storage:
+    sql:
+        use: true
+#       If you set use-worldguard to true, it'll ignore the login info
+#       and just use the same database as the WorldGuard MySQL backend.
+        use-worldguard: true
+        dsn: jdbc:mysql://localhost:3306/mineestates
+        username: mineestates
+        password: estates-pass
+

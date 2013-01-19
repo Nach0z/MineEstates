@@ -1,0 +1,14 @@
+author: Nach0z
+database: false
+description: "Like Towny. allows purchase/sharing/selling of plots.\r\nPlanned: open\
+  \ market plot selling system. /estates sell <name> , /estates buy <name>, etc etc."
+generator: http://dinnerbone.com/minecraft/tools/pluginator/
+main: org.nach0z.mineestate.MineEstatePlugin
+name: MineEstate
+depend: [WorldGuard,Vault]
+startup: postworld
+version: '1.0'
+commands:
+    estates:
+        description: Commands to manage estates on an open market.
+        usage: /estates sell <name>, /estates buy <name>, /estates rent <name>, /estates list <rent|sale> <pagenum>
