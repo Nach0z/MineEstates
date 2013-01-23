@@ -1,440 +1,301 @@
-src/main/java/org/nach0z/mineestate/AccountHandler.java:2: package org.bukkit does not exist
-import org.bukkit.*;
-^
-src/main/java/org/nach0z/mineestate/AccountHandler.java:3: package org.bukkit.plugin does not exist
-import org.bukkit.plugin.*;
-^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:9: package org.bukkit does not exist
-import org.bukkit.*;
-^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:10: package org.bukkit.plugin does not exist
-import org.bukkit.plugin.*;
-^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:11: package org.bukkit.event does not exist
-import org.bukkit.event.EventHandler;
-                       ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:12: package org.bukkit.event does not exist
-import org.bukkit.event.Listener;
-                       ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:13: package org.bukkit.event.player does not exist
-import org.bukkit.event.player.PlayerJoinEvent;
-                              ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:14: package org.bukkit.plugin.java does not exist
-import org.bukkit.plugin.java.JavaPlugin;
-                             ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:27: cannot find symbol
-symbol: class JavaPlugin
-public class MineEstatePlugin extends JavaPlugin implements Listener{
-                                      ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:27: cannot find symbol
-symbol: class Listener
-public class MineEstatePlugin extends JavaPlugin implements Listener{
-                                                            ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:18: package org.bukkit does not exist
-import org.bukkit.*;
-^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:19: package org.bukkit.plugin does not exist
-import org.bukkit.plugin.*;
-^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:20: package org.bukkit.event does not exist
-import org.bukkit.event.EventHandler;
-                       ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:21: package org.bukkit.event does not exist
-import org.bukkit.event.Listener;
-                       ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:22: package org.bukkit.event.player does not exist
-import org.bukkit.event.player.PlayerJoinEvent;
-                              ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:24: package org.bukkit.block does not exist
-import org.bukkit.block.Block;
-                       ^
-src/main/java/org/nach0z/mineestate/DBConnector.java:4: package org.bukkit does not exist
-import org.bukkit.*;
-^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:37: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-    public double getRegionPrice(String regionName, World world) {
-                                                    ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:48: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-    public Location getTeleLocation(String regionName, World world) {
-                                                       ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:48: cannot find symbol
-symbol  : class Location
-location: class org.nach0z.mineestate.RegionFlagManager
-    public Location getTeleLocation(String regionName, World world) {
-           ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:66: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-    public String getOwnerName(String regionName, World world) {
-                                                  ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:83: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-    public boolean existsRegion(String regionName, World world) {
-                                                   ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:89: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-    public boolean transferOwnership(String regionName, String newOwner, World world) {
-                                                                         ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:134: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-    public boolean setPriceFlag(String regionName, double price, World world) {
-                                                                 ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:157: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-    public String getRegionSize(String regionName, World world) {
-                                                   ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:171: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-    public Location getTPPos(String regionName, World world) {
-                                                ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:171: cannot find symbol
-symbol  : class Location
-location: class org.nach0z.mineestate.RegionFlagManager
-    public Location getTPPos(String regionName, World world) {
-           ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:210: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-    public int getSafeBlock(int x, int z, World world, ProtectedRegion target) {
-                                          ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:239: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-    public void updateLockette(String regName, String newOwner, World world) {
-                                                                ^
-src/main/java/org/nach0z/mineestate/DBConnector.java:8: cannot find symbol
-symbol  : class World
-location: interface org.nach0z.mineestate.DBConnector
-	public ArrayList<Listing> getForSale(World world);
-	                                     ^
-src/main/java/org/nach0z/mineestate/DBConnector.java:10: cannot find symbol
-symbol  : class World
-location: interface org.nach0z.mineestate.DBConnector
-	public ArrayList<Listing> getForRent(World world);
-	                                     ^
-src/main/java/org/nach0z/mineestate/DBConnector.java:12: cannot find symbol
-symbol  : class World
-location: interface org.nach0z.mineestate.DBConnector
-	public boolean addForSale(String regionName, double price, World world);
-	                                                           ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:11: package org.bukkit does not exist
-import org.bukkit.*;
-^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:12: package org.bukkit.plugin does not exist
-import org.bukkit.plugin.*;
-^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:14: package org.bukkit.command does not exist
-import org.bukkit.command.*;
-^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:15: package org.bukkit does not exist
-import org.bukkit.ChatColor;
-                 ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:16: package org.bukkit.entity does not exist
-import org.bukkit.entity.Player;
-                        ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:20: cannot find symbol
-symbol: class CommandExecutor
-public class EstateCommandExecutor implements CommandExecutor {
-                                              ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:38: cannot find symbol
-symbol  : class CommandSender
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-	                         ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:38: cannot find symbol
-symbol  : class Command
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-	                                               ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:237: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	public String getSales(String owner, String strPrice, String strSize, boolean sales, boolean rents, String sort, World world) {
-	                                                                                                                 ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:285: cannot find symbol
-symbol  : class CommandSender
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	public boolean sendUsage(CommandSender sender) {
-	                         ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:295: cannot find symbol
-symbol  : class CommandSender
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	public boolean sendUsage(CommandSender sender, String command) {
-	                         ^
-src/main/java/org/nach0z/mineestate/FileDBConnector.java:5: package org.bukkit does not exist
-import org.bukkit.*;
-^
-src/main/java/org/nach0z/mineestate/FileDBConnector.java:36: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.FileDBConnector
-	public ArrayList<Listing> getForSale(World world) {
-	                                     ^
-src/main/java/org/nach0z/mineestate/FileDBConnector.java:41: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.FileDBConnector
-	public ArrayList<Listing> getForRent(World world) {
-	                                     ^
-src/main/java/org/nach0z/mineestate/FileDBConnector.java:46: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.FileDBConnector
-	public boolean addForSale(String regionName, double price, World world) {
-	                                                           ^
-src/main/java/org/nach0z/mineestate/ListingComparator.java:4: package org.bukkit does not exist
-import org.bukkit.*;
-^
-src/main/java/org/nach0z/mineestate/ListingComparator.java:13: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.ListingComparator
-	private World world;
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:97: error: illegal start of type
+		return true;
+		^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:97: error: ';' expected
+		return true;
+		      ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:100: error: class, interface, or enum expected
+	private boolean tp(String args[]) {
 	        ^
-src/main/java/org/nach0z/mineestate/ListingComparator.java:16: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.ListingComparator
-	public ListingComparator(String method, MineEstatePlugin plugin, World world) {
-	                                                                 ^
-src/main/java/org/nach0z/mineestate/MySqlConnector.java:8: package org.bukkit does not exist
-import org.bukkit.*;
-^
-src/main/java/org/nach0z/mineestate/MySqlConnector.java:9: package org.bukkit.configuration does not exist
-import org.bukkit.configuration.*;
-^
-src/main/java/org/nach0z/mineestate/MySqlConnector.java:10: package org.bukkit.configuration.file does not exist
-import org.bukkit.configuration.file.*;
-^
-src/main/java/org/nach0z/mineestate/MySqlConnector.java:38: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.MySqlConnector
-	public ArrayList<Listing> getForSale( World world) {
-	                                      ^
-src/main/java/org/nach0z/mineestate/MySqlConnector.java:60: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.MySqlConnector
-	public ArrayList<Listing> getForRent(World world) {
-	                                     ^
-src/main/java/org/nach0z/mineestate/MySqlConnector.java:83: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.MySqlConnector
-	public boolean addForSale(String name, double price, World world) {
-	                                                     ^
-src/main/java/org/nach0z/mineestate/ThreadedChunkEditor.java:3: package org.bukkit.block does not exist
-import org.bukkit.block.Block;
-                       ^
-src/main/java/org/nach0z/mineestate/ThreadedChunkEditor.java:4: package org.bukkit.block does not exist
-import org.bukkit.block.BlockState;
-                       ^
-src/main/java/org/nach0z/mineestate/ThreadedChunkEditor.java:5: package org.bukkit.block does not exist
-import org.bukkit.block.Sign;
-                       ^
-src/main/java/org/nach0z/mineestate/ThreadedChunkEditor.java:6: package org.bukkit does not exist
-import org.bukkit.*;
-^
-src/main/java/org/nach0z/mineestate/ThreadedChunkEditor.java:7: package org.bukkit.plugin does not exist
-import org.bukkit.plugin.*;
-^
-src/main/java/org/nach0z/mineestate/ThreadedChunkEditor.java:17: cannot find symbol
-symbol  : class Chunk
-location: class org.nach0z.mineestate.ThreadedChunkEditor
-	private Chunk chunk;
-	        ^
-src/main/java/org/nach0z/mineestate/ThreadedChunkEditor.java:20: cannot find symbol
-symbol  : class Chunk
-location: class org.nach0z.mineestate.ThreadedChunkEditor
-	public ThreadedChunkEditor(CuboidRegion cuboid, Chunk chunk, String newOwnerName) {
-	                                                ^
-src/main/java/org/nach0z/mineestate/AccountHandler.java:17: cannot find symbol
-symbol  : class Plugin
-location: class org.nach0z.mineestate.AccountHandler
-		Plugin tmpvlt = Bukkit.getServer().getPluginManager().getPlugin("Vault");
-		^
-src/main/java/org/nach0z/mineestate/AccountHandler.java:17: cannot find symbol
-symbol  : variable Bukkit
-location: class org.nach0z.mineestate.AccountHandler
-		Plugin tmpvlt = Bukkit.getServer().getPluginManager().getPlugin("Vault");
-		                ^
-src/main/java/org/nach0z/mineestate/AccountHandler.java:19: cannot find symbol
-symbol  : variable Bukkit
-location: class org.nach0z.mineestate.AccountHandler
-			vault = (Vault) Bukkit.getServer().getPluginManager().getPlugin("Vault");
-			                ^
-src/main/java/org/nach0z/mineestate/AccountHandler.java:20: cannot find symbol
-symbol  : variable Bukkit
-location: class org.nach0z.mineestate.AccountHandler
-		econ = Bukkit.getServer().getServicesManager().getRegistration(Economy.class).getProvider();
-		       ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:46: cannot find symbol
-symbol  : class Plugin
-location: class org.nach0z.mineestate.MineEstatePlugin
-	Plugin got_plugin = getServer().getPluginManager().getPlugin("WorldGuard");
-	^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:46: cannot find symbol
-symbol  : method getServer()
-location: class org.nach0z.mineestate.MineEstatePlugin
-	Plugin got_plugin = getServer().getPluginManager().getPlugin("WorldGuard");
-	                    ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:48: cannot find symbol
-symbol  : method getDataFolder()
-location: class org.nach0z.mineestate.MineEstatePlugin
-	createDefaultConfig(new File(getDataFolder(), "config.yml"), "config.yml");
-	                             ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:56: cannot find symbol
-symbol  : method getServer()
-location: class org.nach0z.mineestate.MineEstatePlugin
-		getServer().getPluginManager().disablePlugin(this);
-		^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:61: cannot find symbol
-symbol  : method getServer()
-location: class org.nach0z.mineestate.MineEstatePlugin
-		getServer().getPluginManager().disablePlugin(this);
-		^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:71: cannot find symbol
-symbol  : method getDataFolder()
-location: class com.sk89q.worldguard.bukkit.WorldGuardPlugin
-	wg_config = new YAMLProcessor(new File(WORLDGUARD.getDataFolder(), "config.yml"), true, YAMLFormat.EXTENDED);
-	                                                 ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:77: cannot find symbol
-symbol  : method getServer()
-location: class org.nach0z.mineestate.MineEstatePlugin
-		getServer().getPluginManager().disablePlugin(this);
-		^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:83: cannot find symbol
-symbol  : method getServer()
-location: class org.nach0z.mineestate.MineEstatePlugin
-		getServer().getPluginManager().disablePlugin(this);
-		^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:87: cannot find symbol
-symbol  : method getServer()
-location: class org.nach0z.mineestate.MineEstatePlugin
-		getServer().getPluginManager().disablePlugin(this);
-		^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:90: cannot find symbol
-symbol  : method getCommand(java.lang.String)
-location: class org.nach0z.mineestate.MineEstatePlugin
-		getCommand("estates").setExecutor(cmd);
-		^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:100: cannot find symbol
-symbol  : method getServer()
-location: class org.nach0z.mineestate.MineEstatePlugin
-	if(getServer().getPluginManager().getPlugin("Vault") == null)
-	   ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:102: cannot find symbol
-symbol  : class RegisteredServiceProvider
-location: class org.nach0z.mineestate.MineEstatePlugin
-	RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-	^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:102: cannot find symbol
-symbol  : method getServer()
-location: class org.nach0z.mineestate.MineEstatePlugin
-	RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-	                                         ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:110: cannot find symbol
-symbol  : method getServer()
-location: class org.nach0z.mineestate.MineEstatePlugin
-	if(getServer().getPluginManager().getPlugin("Vault") == null)
-	   ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:112: cannot find symbol
-symbol  : class RegisteredServiceProvider
-location: class org.nach0z.mineestate.MineEstatePlugin
-	RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-	^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:112: cannot find symbol
-symbol  : method getServer()
-location: class org.nach0z.mineestate.MineEstatePlugin
-	RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-	                                            ^
-src/main/java/org/nach0z/mineestate/MineEstatePlugin.java:139: cannot find symbol
-symbol  : method getFile()
-location: class org.nach0z.mineestate.MineEstatePlugin
-			JarFile jar = new JarFile(getFile());
-			                          ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:55: cannot find symbol
-symbol  : class Location
-location: class org.nach0z.mineestate.RegionFlagManager
-	Location loc2;
-	^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:60: cannot find symbol
-symbol  : class World
-location: class org.nach0z.mineestate.RegionFlagManager
-	World wrld = Bukkit.getServer().getWorld(worldName);
-	^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:60: cannot find symbol
-symbol  : variable Bukkit
-location: class org.nach0z.mineestate.RegionFlagManager
-	World wrld = Bukkit.getServer().getWorld(worldName);
-	             ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:61: cannot find symbol
-symbol  : class Location
-location: class org.nach0z.mineestate.RegionFlagManager
-	loc2 = new Location(wrld, x, y, z);
-	           ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:172: cannot find symbol
-symbol  : class Location
-location: class org.nach0z.mineestate.RegionFlagManager
-	Location loc = null;
-	^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:201: cannot find symbol
-symbol  : class Location
-location: class org.nach0z.mineestate.RegionFlagManager
-			loc = new Location(world, new Double(i) + 0.5, blockIndex, new Double(j) + 0.5);
-			          ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:213: cannot find symbol
-symbol  : class Block
-location: class org.nach0z.mineestate.RegionFlagManager
-                Block bl = world.getBlockAt(x,i,z);
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:103: error: class, interface, or enum expected
+            return true;
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:104: error: class, interface, or enum expected
+        }
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:110: error: class, interface, or enum expected
+                if(loc != null)
                 ^
-src/main/java/org/nach0z/mineestate/RegionFlagManager.java:245: cannot find symbol
-symbol  : class Chunk
-location: class org.nach0z.mineestate.RegionFlagManager
-		Chunk chunk = world.getChunkAt((int)vec.getX(),(int)vec.getZ());
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:112: error: class, interface, or enum expected
+                else
+                ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:114: error: class, interface, or enum expected
+            } else {
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:116: error: class, interface, or enum expected
+            }
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:119: error: class, interface, or enum expected
+			return false;
+			^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:120: error: class, interface, or enum expected
+        }
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:122: error: class, interface, or enum expected
+	}
+	^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:127: error: class, interface, or enum expected
+		else
 		^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:26: cannot find symbol
-symbol  : variable ChatColor
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	private String prefix = ChatColor.GREEN + "[Estates] " + ChatColor.GOLD;
-	                        ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:26: cannot find symbol
-symbol  : variable ChatColor
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	private String prefix = ChatColor.GREEN + "[Estates] " + ChatColor.GOLD;
-	                                                         ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:27: cannot find symbol
-symbol  : variable ChatColor
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	private String preferr = ChatColor.GREEN + "[Estates] "+ChatColor.RED;
-	                         ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:27: cannot find symbol
-symbol  : variable ChatColor
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	private String preferr = ChatColor.GREEN + "[Estates] "+ChatColor.RED;
-	                                                        ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:28: cannot find symbol
-symbol  : variable ChatColor
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	private String prefix2 = ChatColor.GREEN + "[Estates] "+ChatColor.YELLOW;
-	                         ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:28: cannot find symbol
-symbol  : variable ChatColor
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	private String prefix2 = ChatColor.GREEN + "[Estates] "+ChatColor.YELLOW;
-	                                                        ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:29: cannot find symbol
-symbol  : variable ChatColor
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	private String prefpage = ChatColor.GREEN + "[Estates] "+ChatColor.GRAY;
-	                          ^
-src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:29: cannot find symbol
-symbol  : variable ChatColor
-location: class org.nach0z.mineestate.EstateCommandExecutor
-	private String prefpage = ChatColor.GREEN + "[Estates] "+ChatColor.GRAY;
-	                                                         ^
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:129: error: class, interface, or enum expected
+		return true;
+		^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:130: error: class, interface, or enum expected
+	}
+	^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:134: error: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "/estates buy <regionname>");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:135: error: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "/estates sellPublic <regionName> <price>");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:136: error: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sortparam>");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:137: error: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "/estates cancel <regionname>");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:138: error: class, interface, or enum expected
+                        sender.sendMessage(prefix2 + "/estates page <pagenumber>");
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:139: error: class, interface, or enum expected
+                        return true;
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:140: error: class, interface, or enum expected
+    }
+    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:144: error: class, interface, or enum expected
+        command = command.toLowerCase();
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:145: error: class, interface, or enum expected
+        if(command.equalsIgnoreCase("buy")) {
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:147: error: class, interface, or enum expected
+            ret.add(prefix2 + "This command is used to buy a region off of the open market.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:148: error: class, interface, or enum expected
+            ret.add(prefix2 + "Regions that are not on the market cannot be bought using /estates buy.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:149: error: class, interface, or enum expected
+            ret.add(prefix2 + "Find a region using '/estates search sales' .");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:150: error: class, interface, or enum expected
+        } else if (command.equalsIgnoreCase("sell")) {
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:152: error: class, interface, or enum expected
+            ret.add(prefix2 + "This command is used by the owner of a region to put it up for sale on the open market.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:153: error: class, interface, or enum expected
+            ret.add(prefix2 + "Keep in mind that once someone has bought a region, it is THEIRS. You won't get a warning.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:154: error: class, interface, or enum expected
+            ret.add(prefix2 + "In other words, get everything you want off the lot before you put it on the market.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:155: error: class, interface, or enum expected
+        } else if (command.equalsIgnoreCase("search")) {
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:157: error: class, interface, or enum expected
+            ret.add(prefix2 + "This command is used to search the open market for regions.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:158: error: class, interface, or enum expected
+            ret.add(prefix2 + "[type] MUST be specified, and must be either \"sales\" or \"rents\" ");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:159: error: class, interface, or enum expected
+            ret.add(prefix2 + "Params are: size, owner, price");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:160: error: class, interface, or enum expected
+            ret.add(prefix2 + "Sort params are: owner, name, size, price");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:161: error: class, interface, or enum expected
+            ret.add(prefix2 + "See "+ChatColor.RED+"/estates help flags "+ChatColor.YELLOW+"for more information.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:162: error: class, interface, or enum expected
+        } else if (command.equalsIgnoreCase("sellpublic")) {
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:164: error: class, interface, or enum expected
+            ret.add(prefix2 + "Use this command to put a region on the market without a previous owner.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:165: error: class, interface, or enum expected
+            ret.add(prefix2 + "This command is for admin use, to create new regions and put them on the market without");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:166: error: class, interface, or enum expected
+            ret.add(prefix2 + "the money being given to them for the purchase.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:167: error: class, interface, or enum expected
+            ret.add(prefix2 + "Use "+ChatColor.RED+"/estates sell"+ChatColor.YELLOW+" to sell your own plots.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:168: error: class, interface, or enum expected
+        } else if (command.equalsIgnoreCase("help")) {
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:170: error: class, interface, or enum expected
+            ret.add(prefix2 + "Use this to see the usage of each command");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:171: error: class, interface, or enum expected
+            ret.add(prefix2 + "Help topics are: sell, sellpublic, search, buy, and flags");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:172: error: class, interface, or enum expected
+        } else if (command.equalsIgnoreCase("flags")) {
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:174: error: class, interface, or enum expected
+            ret.add(prefix2 + "owner <ownername> : Shows only results owned by <ownername>");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:175: error: class, interface, or enum expected
+            ret.add(prefix2 + "size LxW : shows only sizes longer than L and wider than W. try 10x10.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:176: error: class, interface, or enum expected
+            ret.add(prefix2 + "price <number> : shows only plots less expensive than <number>");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:177: error: class, interface, or enum expected
+            ret.add(prefix2 + "sort <flag> : sorts by either name, size, or price.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:178: error: class, interface, or enum expected
+        } else {
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:180: error: class, interface, or enum expected
+        }
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:183: error: class, interface, or enum expected
+        return true;
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:184: error: class, interface, or enum expected
+	}
+	^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:188: error: class, interface, or enum expected
+        String price = "";
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:189: error: class, interface, or enum expected
+        String size = "";
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:190: error: class, interface, or enum expected
+        String sort = "";
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:191: error: class, interface, or enum expected
+        int sortIndex = -1;
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:192: error: class, interface, or enum expected
+        boolean rents = false;
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:193: error: class, interface, or enum expected
+        boolean sales = false;
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:194: error: class, interface, or enum expected
+        if(args.length%2 != 0) {
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:196: error: class, interface, or enum expected
+            sender.sendMessage(preferr + "See /estates usage for a full description of params and sorting.");
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:197: error: class, interface, or enum expected
+        }
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:198: error: class, interface, or enum expected
+        for(int i = 0; i< args.length; i++) {
+                       ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:198: error: class, interface, or enum expected
+        for(int i = 0; i< args.length; i++) {
+                                       ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:201: error: class, interface, or enum expected
+            if(args[i].equalsIgnoreCase("size") && i < args.length-1 && !args[i-1].equalsIgnoreCase("sort"))
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:203: error: class, interface, or enum expected
+            if(args[i].equalsIgnoreCase("price") && i < args.length-1 && !args[i-1].equalsIgnoreCase("sort"))
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:205: error: class, interface, or enum expected
+            if(args[i].equalsIgnoreCase("sort") && i < args.length-1) {
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:208: error: class, interface, or enum expected
+                    sortIndex = i;
+                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:209: error: class, interface, or enum expected
+                }
+                ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:212: error: class, interface, or enum expected
+                    sortIndex = i;
+                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:213: error: class, interface, or enum expected
+                    }
+                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:216: error: class, interface, or enum expected
+                        sortIndex = i;
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:217: error: class, interface, or enum expected
+                    }
+                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:220: error: class, interface, or enum expected
+                        sortIndex = i;
+                        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:221: error: class, interface, or enum expected
+                    }
+                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:224: error: class, interface, or enum expected
+                    }
+                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:229: error: class, interface, or enum expected
+                    if(str.equalsIgnoreCase("rents"))
+                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:231: error: class, interface, or enum expected
+                }
+                ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:235: error: class, interface, or enum expected
+        String[] lines = message.split("\n");
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:236: error: class, interface, or enum expected
+        sender.sendMessage(prefix + lines[0]);
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:237: error: class, interface, or enum expected
+        LookupCache tmpCache = new LookupCache();
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:238: error: class, interface, or enum expected
+        for(int i = 1; i < lines.length; i++)
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:238: error: class, interface, or enum expected
+        for(int i = 1; i < lines.length; i++)
+                       ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:238: error: class, interface, or enum expected
+        for(int i = 1; i < lines.length; i++)
+                                         ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:240: error: class, interface, or enum expected
+        lookups.put(sender.getName(), tmpCache);
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:241: error: class, interface, or enum expected
+        sender.sendMessage(prefpage + "--- Results page "+ChatColor.WHITE+" 1 "+ChatColor.GRAY+" of "+ChatColor.WHITE+tmpCache.getPages()+ChatColor.GRAY+" ---");
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:242: error: class, interface, or enum expected
+        for(String str : lookups.get(sender.getName()).getLines(0))
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:244: error: class, interface, or enum expected
+        return true;
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:245: error: class, interface, or enum expected
+	}
+	^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:250: error: class, interface, or enum expected
+            return true;
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:251: error: class, interface, or enum expected
+        }
+        ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:255: error: class, interface, or enum expected
+            System.out.println(args[1] +" " + regions.getRegionPrice(args[1], world));
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:256: error: class, interface, or enum expected
+            if(!accounts.hasFunds(player.getName(), regPrice)) {
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:258: error: class, interface, or enum expected
+            } else {
+            ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:261: error: class, interface, or enum expected
+                    regions.setPriceFlag(args[1], 0, world);
+                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:262: error: class, interface, or enum expected
+                    _plugin.getDBConnector().removeForSale(args[1]);
+                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:263: error: class, interface, or enum expected
+                    return true;
+                    ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:264: error: class, interface, or enum expected
+                } else {
+                ^
+src/main/java/org/nach0z/mineestate/EstateCommandExecutor.java:266: error: class, interface, or enum expected
+                }
+                ^
 100 errors

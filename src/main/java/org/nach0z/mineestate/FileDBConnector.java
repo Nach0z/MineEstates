@@ -79,4 +79,8 @@ public class FileDBConnector implements DBConnector {
 		return true;
 	}
 
+	public boolean isForRent(String regionName) {
+		return true;
+	}
+
 }

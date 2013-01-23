@@ -133,13 +133,23 @@ public class MySqlConnector implements DBConnector {
 	public boolean isForSale(String name) {
 		try{
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM estate_listings WHERE region_name LIKE '"+name+"'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM estate_listings WHERE region_name LIKE '"+name+"' AND listing_type LIKE 'sale'");
 			return rs.next();
 		} catch (Exception e) {
 			System.out.println(e);
 			return false;
 		}
+	}
 
+	public boolean isForRent(String name) {
+		try{
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM estate_listings WHERE region_name LIKE '"+name+"' AND listing_type LIKE 'rent'");
+			return rs.next();
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
 	}
 
 	public ArrayList<Listing> getTenants(World world) {
@@ -164,9 +174,13 @@ public class MySqlConnector implements DBConnector {
 
 	public boolean addTenant(String regionName, String tenantName, int regionPrice) {
         try {
+			Date date = new Date();
+       		Calendar cal = Calendar.getInstance();
+       		cal.setTime(date);
+        	String time = cal.get(Calendar.HOUR_OF_DAY) + ":" + roundUpToNearestFive(cal.get(Calendar.MINUTE));
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("DELETE FROM estate_listings WHERE region_name LIKE '"+regionName+"'");
-            stmt.executeUpdate("INSERT INTO estate_tenants(region_name, tenant, price) VALUES ('"+regionName+"', '"+tenantName+"', "+regionPrice+")");
+            stmt.executeUpdate("INSERT INTO estate_tenants(region_name, tenant, price, time_ordered) VALUES ('"+regionName+"', '"+tenantName+"', "+regionPrice+", "+time+")");
         } catch (Exception e) {
             System.out.println(e);
             return false;
@@ -206,4 +220,8 @@ public class MySqlConnector implements DBConnector {
 		}
 	}
 
+    public int roundUpToNearestFive(int orig) {
+        int ret = (orig + 4) / 5 * 5;
+        return ret;
+    }
 }

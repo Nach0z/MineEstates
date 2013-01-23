@@ -25,4 +25,6 @@ public interface DBConnector {
 
 	public boolean isForSale(String regionName);
 
+	public boolean isForRent(String regionName);
+
 }
