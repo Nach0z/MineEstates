@@ -2,18 +2,18 @@ package org.nach0z.mineestate;
 
 import java.util.EnumSet;
 public enum Commands {
-	TP("TP", 1),
-	GOTO("GOTO", 1),
-	PAGE("PAGE", 1),
-	USAGE("USAGE", 0),
-	HELP("HELP", 0),
-	SEARCH("SEARCH", 1),
-	BUY("BUY", 1),
-	SELL("SELL", 2),
-	SELLPUBLIC("SELLPUBLIC", 2),
-	LEASE("LEASE", 2),
-	RENT("RENT", 2),
-	CANCEL("CANCEL", 1);
+	TP("TP", 2),
+	GOTO("GOTO", 2),
+	PAGE("PAGE", 2),
+	USAGE("USAGE", 1),
+	HELP("HELP", 1),
+	SEARCH("SEARCH", 2),
+	BUY("BUY", 2),
+	SELL("SELL", 3),
+	SELLPUBLIC("SELLPUBLIC", 3),
+	LEASE("LEASE", 3),
+	RENT("RENT", 3),
+	CANCEL("CANCEL", 2);
 
 	private int numArgs;
 
@@ -38,7 +38,7 @@ public enum Commands {
 	public boolean satisfied(String[] args) {
 		boolean ret = (args.length >= numArgs);
 		if(args[0].equalsIgnoreCase("SEARCH")) {
-			if(args.length%0 == 0)
+			if(!(args.length%2 == 0))
 				ret = false;
 		}
 		return ret;

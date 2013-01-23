@@ -41,10 +41,10 @@ public class EstateCommandExecutor implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command commandStr, String label, String[] args) {
         Player player = null;
 		this.sender = sender;
-		world = player.getWorld();
         if(sender instanceof Player) {
             player = (Player) sender;
 			this.player = player;
+			world = player.getWorld();
 		}
 
         if(!commandStr.getName().equalsIgnoreCase("estates"))
@@ -382,7 +382,7 @@ public class EstateCommandExecutor implements CommandExecutor {
         if(regions.existsRegion(args[1],world)) {
             if( Double.compare(Double.parseDouble(args[2]), 0) > 0 && sender.getName().equalsIgnoreCase(regions.getOwnerName(args[1], world)) && regions.setPriceFlag(args[1], Double.parseDouble(args[2]), world)) {
                 _plugin.getDBConnector().addForRent(args[1], Double.parseDouble(args[2]), world);
-                sender.sendMessage(prefix + "Successfully added "+args[1]+" to the renal market for "+args[2]+"!");
+                sender.sendMessage(prefix + "Successfully added "+args[1]+" to the rental market for "+args[2]+"!");
 				return true;
             } else {
                 sender.sendMessage(preferr + "Failed to add specified estate to the market: You are not the owner!");

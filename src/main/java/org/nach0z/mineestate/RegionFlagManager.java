@@ -97,11 +97,14 @@ public class RegionFlagManager {
 		if(currentOwner.equals("FAILED_MULTI"))
 			return false;
 		if(accounts.chargeMoney(member, getRegionPrice(regionName, world))) {
-			DefaultDomain newMember = new DefaultDomain();
-			newMember.addPlayer(member);
+			DefaultDomain newMembers = target.getMembers();
+			newMembers.addPlayer(member);
+			target.setMembers(newMembers);
 			if(accounts.addMoney(currentOwner, getRegionPrice(regionName, world))) {
 				ret = true;
 			} else {
+				newMembers.removePlayer(member);
+				target.setMembers(newMembers);
 				accounts.addMoney(member, getRegionPrice(regionName, world));
                 _plugin.WORLDGUARD.getGlobalRegionManager().get(world).removeRegion(regionName);
                 _plugin.WORLDGUARD.getGlobalRegionManager().get(world).addRegion(target);
