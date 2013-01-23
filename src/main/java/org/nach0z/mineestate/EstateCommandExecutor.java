@@ -56,7 +56,7 @@ public class EstateCommandExecutor implements CommandExecutor {
 		//Sets up a command enum for switch cases. Much faster than the old method.
 		Commands command = Commands.fromString(args[0]);
 		if(!command.satisfied(args)) {
-			sendUsage(sender, args[1]);
+			sendUsage(sender, args[0]);
 			return true;
 		}
 		boolean ret = false;
@@ -228,6 +228,10 @@ public class EstateCommandExecutor implements CommandExecutor {
                     if(str.equalsIgnoreCase("rents"))
                         rents = true;
                 }
+				if(!sales && !rents) {
+					sendUsage(sender, "search");
+					return true;
+				}
 
             }
         String message = getSales(owner, price, size, sales, rents, sort, world);
@@ -395,8 +399,29 @@ public class EstateCommandExecutor implements CommandExecutor {
 	}
 
 	private boolean rent(String[] args) {
-		//stub
-		return true;
+        if(!perms.has(player, "estates.plots.rent") && !player.isOp()) {
+            sender.sendMessage(preferr + "You do not have permission to buy plots!");
+            return true;
+        }
+        //@TODO add in confirmation/teleportation code
+        if( regions.existsRegion(args[1], world) && Double.compare(regions.getRegionPrice(args[1], world), 0) > 0 ) {
+            double regPrice = regions.getRegionPrice(args[1], world);
+            System.out.println(args[1] +" " + regions.getRegionPrice(args[1], world));
+            if(!accounts.hasFunds(player.getName(), regPrice)) {
+                sender.sendMessage(prefix + "You don't have enough funds to rent this region!");
+                return false;
+            } else {
+                if(regions.addMember(args[1], player.getName(), world)) {
+                    sender.sendMessage(prefix + "You have successfully rented "+args[1]+" for " + regPrice +" "+ accounts.getUnitsPlural());
+                    _plugin.getDBConnector().removeForRent(args[1]);
+                    return true;
+                } else {
+                    sender.sendMessage(prefix + "The rental has failed. This may be because the region has multiple owners, or because of an internal error. Please talk to your server admin.");
+                    return false;
+                }
+            }
+        }
+        return false;
 	}
 
 }

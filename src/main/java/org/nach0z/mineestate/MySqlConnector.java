@@ -69,7 +69,7 @@ public class MySqlConnector implements DBConnector {
                                         String name = rs.getString("region_name");
                                         String size = regions.getRegionSize(name, world);
                                         //price, size, name, type
-                                        listing = new Listing(price, regions.getRegionSize(name, world), name, rs.getString("type"), regions.getOwnerName(name, world));
+                                        listing = new Listing(price, regions.getRegionSize(name, world), name, rs.getString("listing_type"), regions.getOwnerName(name, world));
                                         ret.add(listing);
                                 }
                         }
