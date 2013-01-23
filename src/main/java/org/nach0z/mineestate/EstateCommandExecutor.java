@@ -174,6 +174,16 @@ public class EstateCommandExecutor implements CommandExecutor {
             ret.add(prefix2 + "size LxW : shows only sizes longer than L and wider than W. try 10x10.");
             ret.add(prefix2 + "price <number> : shows only plots less expensive than <number>");
             ret.add(prefix2 + "sort <flag> : sorts by either name, size, or price.");
+		} else if (command.equalsIgnoreCase("lease")) {
+			ret.add(prefix + "/estates lease <regionname> <price>");
+			ret.add(prefix2 + "Use this command to allow users to rent a plot from you for <price> amount of money per 24 hours.");
+			ret.add(prefix2 + "This will NOT update Lockette signs.");
+			ret.add(prefix2 + "Search for rents to see if your plot has made it onto the market.");
+		} else if (command.equalsIgnoreCase("rent")) {
+			ret.add(prefix + "/estates rent <regionname> <days>");
+			ret.add(prefix2 + "Use this command to rent a plot from another user for a while. <days> is optional.");
+			ret.add(prefix2 + "Once <days> has run out, you'll be evicted from the plot; make sure you have your stuff before that happens.");
+			ret.add(prefix2 + "Not specifying a number of days will let you rent until the owner kicks you out, or until you leave.");
         } else {
                 ret.add(preferr + "There is no help message for that command.");
         }
@@ -263,7 +273,7 @@ public class EstateCommandExecutor implements CommandExecutor {
                 if(regions.transferOwnership(args[1], player.getName(), world)) {
                     sender.sendMessage(prefix + "You have successfully purchased "+args[1]+" for " + regPrice +" "+ accounts.getUnitsPlural());
                     regions.setPriceFlag(args[1], 0, world);
-                    _plugin.getDBConnector().removeForSale(args[1]);
+                    _plugin.getDBConnector().removeForSale(args[1], world);
                     return true;
                 } else {
                     sender.sendMessage(prefix + "The purchase has failed. This may be because the region has multiple owners, or because of an internal error. Please talk to your server admin.");
@@ -316,8 +326,8 @@ public class EstateCommandExecutor implements CommandExecutor {
                     sender.sendMessage(preferr + "This plot is not on the market right now!");
                     return true;
                 }
-                _plugin.getDBConnector().removeForSale(args[1]);
-                _plugin.getDBConnector().removeForRent(args[1]);
+                _plugin.getDBConnector().removeForSale(args[1], world);
+                _plugin.getDBConnector().removeForRent(args[1], world);
                 _plugin.getRegionFlagManager().setPriceFlag(args[1], 0, world);
 				return true;
             } else {
@@ -413,7 +423,7 @@ public class EstateCommandExecutor implements CommandExecutor {
             } else {
                 if(regions.addMember(args[1], player.getName(), world)) {
                     sender.sendMessage(prefix + "You have successfully rented "+args[1]+" for " + regPrice +" "+ accounts.getUnitsPlural());
-                    _plugin.getDBConnector().removeForRent(args[1]);
+                    _plugin.getDBConnector().removeForRent(args[1], world);
                     return true;
                 } else {
                     sender.sendMessage(prefix + "The rental has failed. This may be because the region has multiple owners, or because of an internal error. Please talk to your server admin.");

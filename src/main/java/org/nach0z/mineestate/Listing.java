@@ -1,6 +1,7 @@
 package org.nach0z.mineestate;
 
 import java.util.*;
+import org.bukkit.*;
 
 public class Listing {
 	public double price;
@@ -8,12 +9,14 @@ public class Listing {
 	public String size;
 	public String type;
 	public String owner;
-	public Listing(double price, String size, String name, String type, String owner) {
+	public World world;
+	public Listing(double price, String size, String name, String type, String owner, String world) {
 		this.price = price;
 		this.size = size;
 		this.type = type;
 		this.name = name;
 		this.owner = owner;
+		this.world = Bukkit.getWorld(world);
 	}
 
 	public String toString() {

@@ -43,7 +43,7 @@ public class FileDBConnector implements DBConnector {
 		return new ArrayList<Listing>();
 	}
 
-	public ArrayList<Listing> getTenants(World world) {
+	public ArrayList<Listing> getTenants(String regionName, World world) {
 		return new ArrayList<Listing>();
 	}
 
@@ -51,7 +51,7 @@ public class FileDBConnector implements DBConnector {
 		return true;
 	}
 
-	public boolean addTenant(String regionName, String tenantName, int regionPrice) {
+	public boolean addTenant(String regionName, String tenantName, int regionPrice, int numDays, World world) {
 		return true;
 	}
 
@@ -65,12 +65,12 @@ public class FileDBConnector implements DBConnector {
 		return true;
 	}
 
-	public boolean removeForSale(String regionName) {
+	public boolean removeForSale(String regionName, World world) {
 
 		return true;
 	}
 
-	public boolean removeForRent(String regionName) {
+	public boolean removeForRent(String regionName, World world) {
 
 		return true;
 	}
@@ -81,6 +81,14 @@ public class FileDBConnector implements DBConnector {
 
 	public boolean isForRent(String regionName) {
 		return true;
+	}
+
+	public boolean subtractDay(String regionName, World world) {
+		return true;
+	}
+
+	public int daysRemaining(String regionName, World world) {
+		return -1;
 	}
 
 }

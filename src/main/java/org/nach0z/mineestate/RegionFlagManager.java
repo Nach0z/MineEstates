@@ -91,7 +91,7 @@ public class RegionFlagManager {
 		String currentOwner = getOwnerName(regionName, world);
 		boolean ret;
 		if(!_plugin.getDBConnector().isForRent(regionName)) {
-			_plugin.getDBConnector().removeForSale(regionName);
+			_plugin.getDBConnector().removeForRent(regionName, world);
 			return false;
 		}
 		if(currentOwner.equals("FAILED_MULTI"))
@@ -129,7 +129,7 @@ public class RegionFlagManager {
 		String currentOwner = getOwnerName(regionName, world);
 		boolean ret;
 		if(!_plugin.getDBConnector().isForSale(regionName)) {
-			_plugin.getDBConnector().removeForSale(regionName);
+			_plugin.getDBConnector().removeForSale(regionName, world);
 			return false;
 		}
 		if(currentOwner.equals("FAILED_MULTI"))

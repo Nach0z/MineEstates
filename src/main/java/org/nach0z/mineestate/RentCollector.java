@@ -32,13 +32,16 @@ public class RentCollector implements Runnable {
 		}
 */
 		for(Listing plot : tenants) {
-			if(plot.type.equals(time)) {
+			//if(plot.type.equals(time)) {
 				if(!accounts.hasFunds(plot.owner, plot.price)) {
+					//release plot from tenant's control
+				} else if (dbc.daysRemaining(plot.name, worlds.get(0)) == 0) {
 					//release plot from tenant's control
 				} else {
 					accounts.chargeMoney(plot.owner, plot.price);
+					dbc.subtractDay(plot.name, worlds.get(0));
 				}
-			}
+			//}
 		}
 	}
 
