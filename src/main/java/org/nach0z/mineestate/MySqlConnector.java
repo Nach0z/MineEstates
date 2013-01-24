@@ -152,12 +152,12 @@ public class MySqlConnector implements DBConnector {
 		}
 	}
 
-	public ArrayList<Listing> getTenants(String regionName, World world) {
+	public ArrayList<Listing> getTenants(World world) {
 		ArrayList<Listing> ret = new ArrayList<Listing>();
         try {
             Statement stmt = conn.createStatement();
             Listing listing;
-            ResultSet rs = stmt.executeQuery("SELECT * FROM estate_tenants WHERE region_name LIKE '"+regionName+"' AND world LIKE '"+world.getName()+"'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM estate_tenants WHERE world LIKE '"+world.getName()+"'");
             while(rs.next()) {
                 double price = rs.getDouble("price");
                 String name = rs.getString("region_name");
@@ -172,15 +172,16 @@ public class MySqlConnector implements DBConnector {
         return ret;
 	}
 
-	public boolean addTenant(String regionName, String tenantName, int regionPrice, int numDays, World world) {
+	public boolean addTenant(String regionName, String tenantName, double regionPrice, int numDays, World world) {
         try {
 			Date date = new Date();
        		Calendar cal = Calendar.getInstance();
        		cal.setTime(date);
         	String time = cal.get(Calendar.HOUR_OF_DAY) + ":" + roundUpToNearestFive(cal.get(Calendar.MINUTE));
+			System.out.println(Calendar.HOUR_OF_DAY);
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("DELETE FROM estate_listings WHERE region_name LIKE '"+regionName+"'");
-            stmt.executeUpdate("INSERT INTO estate_tenants(region_name, tenant, price, time_ordered, days_remaining, world ) VALUES ('"+regionName+"', '"+tenantName+"', "+regionPrice+", "+time+"', '"+(numDays-1)+"', '" + world.getName()+"')");
+            stmt.executeUpdate("INSERT INTO estate_tenants(region_name, tenant, price, time_ordered, days_remaining, world ) VALUES ('"+regionName+"', '"+tenantName+"', "+regionPrice+", '"+time+"', '"+(numDays-1)+"', '" + world.getName()+"')");
         } catch (Exception e) {
             System.out.println(e);
             return false;
@@ -191,11 +192,12 @@ public class MySqlConnector implements DBConnector {
 	public boolean subtractDay(String regionName, World world) {
 		try {
 			Statement stmt = conn.createStatement();
+			Statement updt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM estate_tenants WHERE region_name LIKE '"+regionName+"' AND world LIKE '"+world.getName()+"'");
 			int days = 0;
 			while(rs.next()) {
 				days = rs.getInt("days_remaining");
-				stmt.executeUpdate("UPDATE estate_tenants SET days_remaining='"+(--days)+"' WHERE region_name='"+regionName+"' AND world='"+world.getName()+"'");
+				updt.executeUpdate("UPDATE estate_tenants SET days_remaining='"+(--days)+"' WHERE region_name='"+regionName+"' AND world='"+world.getName()+"'");
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -248,7 +250,7 @@ public class MySqlConnector implements DBConnector {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS estate_listings ( region_name VARCHAR(64), listing_type VARCHAR(10), price DOUBLE(16,2), world VARCHAR(64))");
-			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS estate_tenants ( region_name VARCHAR(64), tenant VARCHAR(32), price DOUBLE(16,2), time_ordered VARCHAR(12), world VARCHAR(64))");
+			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS estate_tenants ( region_name VARCHAR(64), tenant VARCHAR(32), price DOUBLE(16,2), time_ordered VARCHAR(12), world VARCHAR(64), days_remaining DOUBLE(16,2))");
 		} catch (Exception e) {
 			System.out.println(e);
 		}

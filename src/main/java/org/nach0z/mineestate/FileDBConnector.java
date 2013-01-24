@@ -43,7 +43,7 @@ public class FileDBConnector implements DBConnector {
 		return new ArrayList<Listing>();
 	}
 
-	public ArrayList<Listing> getTenants(String regionName, World world) {
+	public ArrayList<Listing> getTenants(World world) {
 		return new ArrayList<Listing>();
 	}
 
@@ -51,7 +51,7 @@ public class FileDBConnector implements DBConnector {
 		return true;
 	}
 
-	public boolean addTenant(String regionName, String tenantName, int regionPrice, int numDays, World world) {
+	public boolean addTenant(String regionName, String tenantName, double regionPrice, int numDays, World world) {
 		return true;
 	}
 

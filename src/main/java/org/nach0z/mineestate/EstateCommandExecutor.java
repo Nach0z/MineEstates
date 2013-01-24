@@ -424,6 +424,10 @@ public class EstateCommandExecutor implements CommandExecutor {
                 if(regions.addMember(args[1], player.getName(), world)) {
                     sender.sendMessage(prefix + "You have successfully rented "+args[1]+" for " + regPrice +" "+ accounts.getUnitsPlural());
                     _plugin.getDBConnector().removeForRent(args[1], world);
+					if(args.length == 3)
+						_plugin.getDBConnector().addTenant(args[1], player.getName(), regPrice, Integer.parseInt(args[2]), world);
+					else
+						_plugin.getDBConnector().addTenant(args[1], player.getName(), regPrice, -1, world);
                     return true;
                 } else {
                     sender.sendMessage(prefix + "The rental has failed. This may be because the region has multiple owners, or because of an internal error. Please talk to your server admin.");

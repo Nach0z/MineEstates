@@ -9,9 +9,9 @@ public interface DBConnector {
 
 	public ArrayList<Listing> getForRent(World world);
 
-	public ArrayList<Listing> getTenants(String regionName, World world);
+	public ArrayList<Listing> getTenants(World world);
 
-	public boolean addTenant(String regionName, String tenantName, int regionPrice, int numDays, World world);
+	public boolean addTenant(String regionName, String tenantName, double regionPrice, int numDays, World world);
 
 	public boolean removeTenant(String regionName, World world);
 
