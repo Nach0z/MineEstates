@@ -1,4 +1,4 @@
-Rent/lease functionality
-File DB setup for non-MySQL setups
-Checking for whether a plot is actually for sale before finalizing transaction
-/estates GOTO <regionname>
+Rent/lease functionality [Now in progress!]
+File DB setup for non-MySQL setups [db4o?]
+Utils class sometime in the future to pare down code
+
