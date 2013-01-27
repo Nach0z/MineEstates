@@ -13,6 +13,8 @@ public enum Commands {
 	SELLPUBLIC("SELLPUBLIC", 3),
 	LEASE("LEASE", 3),
 	RENT("RENT", 2),
+	EVICT("EVICT", 2),
+	LEAVE("LEAVE", 2),
 	CANCEL("CANCEL", 2);
 
 	private int numArgs;

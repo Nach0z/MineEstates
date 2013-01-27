@@ -41,7 +41,7 @@ public class RentCollector implements Runnable {
 			}
 		}
 		for(Listing plot : tenants) {
-			//if(plot.type.equals(time)) {
+			if(plot.type.equals(time)) {
 				if(!accounts.hasFunds(plot.owner, plot.price)) {
 					//release plot from tenant's control
 					System.out.println("TODO: Insufficient Funds");
@@ -55,7 +55,7 @@ public class RentCollector implements Runnable {
 					System.out.println("Collected!");
 
 				}
-			//}
+			}
 		}
 		System.out.println("Finished collecting rents.");
 	}
