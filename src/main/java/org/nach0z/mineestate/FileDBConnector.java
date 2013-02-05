@@ -91,8 +91,4 @@ public class FileDBConnector implements DBConnector {
 		return -1;
 	}
 
-	public boolean removeTenant(String regionName, World world) {
-		return true;
-	}
-
 }
