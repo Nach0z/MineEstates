@@ -73,6 +73,8 @@ public class EstateCommandExecutor implements CommandExecutor {
 			case CANCEL : ret = cancel(args); break;
 			case LEASE : ret = lease(args); break;
 			case RENT : ret = rent(args); break;
+			case LEAVE :
+			case EVICT : 
 			default:
 				break;
 		}
