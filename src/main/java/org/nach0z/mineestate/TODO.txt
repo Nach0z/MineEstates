@@ -1,4 +1,4 @@
 Rent/lease functionality [Now in progress!]
 File DB setup for non-MySQL setups [db4o?]
 Utils class sometime in the future to pare down code
-
+Catch errors like "$" in prices before they parser flips its lid over it
