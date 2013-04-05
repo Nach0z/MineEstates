@@ -40,6 +40,8 @@ public class RentCollector implements Runnable {
 				tenants.add(l);
 			}
 		}
+		if (tenants.isEmpty())
+			return;
 		for(Listing plot : tenants) {
 			if(plot.type.equals(time)) {
 				if(!accounts.hasFunds(plot.owner, plot.price)) {
