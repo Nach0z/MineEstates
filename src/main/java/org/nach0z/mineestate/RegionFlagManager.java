@@ -79,6 +79,22 @@ public class RegionFlagManager {
 			return "";
 		}
     }
+    
+    public String getMemberNames(String regionName, World world) {
+    	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
+    	DefaultDomain members = target.getMembers();
+    	Set<String> memberList = members.getPlayers();
+    	if(memberList.size() > 1)
+    		return "FAILED_MULTI";
+    	else if (memberList.size() == 0)
+    		return "EMPTY";
+    	else {
+    		Object ob = memberList.iterator().next();
+    		if(ob instanceof String)
+    			return (String) ob;
+    		return "";
+    	}
+    }
 
     public boolean existsRegion(String regionName, World world) {
 //		World world = Bukkit.getServer().getWorld("world");

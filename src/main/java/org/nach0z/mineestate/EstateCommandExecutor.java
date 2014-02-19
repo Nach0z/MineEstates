@@ -73,8 +73,8 @@ public class EstateCommandExecutor implements CommandExecutor {
 			case CANCEL : ret = cancel(args); break;
 			case LEASE : ret = lease(args); break;
 			case RENT : ret = rent(args); break;
-			case LEAVE :
-			case EVICT : 
+			case LEAVE : ret = leave(args); break;
+			case EVICT : ret = evict(args); break;
 			default:
 				break;
 		}
@@ -137,6 +137,9 @@ public class EstateCommandExecutor implements CommandExecutor {
                         sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sortparam>");
                         sender.sendMessage(prefix2 + "/estates cancel <regionname>");
                         sender.sendMessage(prefix2 + "/estates page <pagenumber>");
+                        sender.sendMessage(prefix2 + "/estates rent <regionname> <days>");
+                        sender.sendMessage(prefix2 + "/estates leave <regionname>");
+                        sender.sendMessage(prefix2 + "/estates evict <regionname>");
                         return true;
     }
 
@@ -186,6 +189,14 @@ public class EstateCommandExecutor implements CommandExecutor {
 			ret.add(prefix2 + "Use this command to rent a plot from another user for a while. <days> is optional.");
 			ret.add(prefix2 + "Once <days> has run out, you'll be evicted from the plot; make sure you have your stuff before that happens.");
 			ret.add(prefix2 + "Not specifying a number of days will let you rent until the owner kicks you out, or until you leave.");
+		} else if (command.equalsIgnoreCase("evict")) {
+			ret.add(prefix + "/estates evict <regionname");
+			ret.add(prefix2 + "Use this command to evict a tenant from a plot. This will return the plot to the rental market.");
+			ret.add(prefix2 + "Evict tenants before cancelling!");
+		} else if (command.equalsIgnoreCase("leave")) {
+			ret.add(prefix + "/estates leave <regionname>");
+			ret.add(prefix2 + "Use this command to stop renting a rental property.");
+			ret.add(prefix2 + "Doing this will remove you from the rental property membership and return the property to the rental market.");
         } else {
                 ret.add(preferr + "There is no help message for that command.");
         }
@@ -422,6 +433,8 @@ public class EstateCommandExecutor implements CommandExecutor {
             if(!accounts.hasFunds(player.getName(), regPrice)) {
                 sender.sendMessage(prefix + "You don't have enough funds to rent this region!");
                 return false;
+            } else if (player.getName().equalsIgnoreCase(regions.getOwnerName(args[1], world))) {
+            	sender.sendMessage(prefix + "Seriously, why would you try to rent a plot to yourself? just /estates cancel <regionname>.");
             } else {
                 if(regions.addMember(args[1], player.getName(), world)) {
                     sender.sendMessage(prefix + "You have successfully rented "+args[1]+" for " + regPrice +" "+ accounts.getUnitsPlural());
@@ -438,6 +451,59 @@ public class EstateCommandExecutor implements CommandExecutor {
             }
         }
         return false;
+	}
+	
+	private boolean evict(String[] args) {
+		if(!perms.has(player, "estates.plots.rent") && !player.isOp()) {
+            sender.sendMessage(preferr + "You do not have permission to evict users from plots!");
+            return true;
+        }
+		if(regions.existsRegion(args[1], world)) {
+			
+			if(regions.getOwnerName(args[1], world).equalsIgnoreCase(player.getName())) {
+				String tenant = _plugin.getDBConnector().getTenantName(args[1], world);
+				if(regions.getMemberNames(args[1], world) != null && tenant != null) {
+					if(_plugin.getDBConnector().removeTenant(args[1], world)) {
+						sender.sendMessage(prefix + "Successfully removed tenant from rented plot: " + args[1]);
+						sender.sendMessage(prefix + "The plot has been put back on the market for rent.");
+						return true;
+					} else {
+						sender.sendMessage(preferr+"Unable to remove renter!");
+					}
+				} else {
+					sender.sendMessage(preferr + "Nobody currently seems to be renting this plot.");
+				}
+			} else {
+				sender.sendMessage(preferr + "Unable to evict player from specified region. Make sure you own the plot.");
+			}
+		} else {
+			sender.sendMessage(preferr + "No such region found in current world.");
+		}
+		return false;
+	}
+	
+	private boolean leave(String[] args) {
+		if(!perms.has(player, "estates.plots.rent") && !player.isOp()) {
+            sender.sendMessage(preferr + "You do not have permission to rent plots.");
+            return true;
+        }
+		if(regions.existsRegion(args[1], world)) {
+			String tenant = _plugin.getDBConnector().getTenantName(args[1], world);
+			if(tenant != null && tenant.equalsIgnoreCase(player.getName())) {
+				if(_plugin.getDBConnector().removeTenant(args[1], world)) {
+					sender.sendMessage(prefix + "Successfully removed you from rented plot: " + args[1]);
+					sender.sendMessage(prefix + "The plot has been put back on the market for rent.");
+					return true;
+				} else {
+					sender.sendMessage(preferr+"Unable to leave plot!");
+				}
+			} else {
+				sender.sendMessage(preferr + "You cannot leave a plot you aren't renting.");
+			}
+		}else {
+			sender.sendMessage(preferr + "No such region found in current world.");
+		}
+		return false;
 	}
 
 }

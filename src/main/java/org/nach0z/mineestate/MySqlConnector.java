@@ -171,6 +171,24 @@ public class MySqlConnector implements DBConnector {
         }
         return ret;
 	}
+	
+	public String getTenantName(String regionName, World world) {
+		String tenant = null;;
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM estate_tenants WHERE world LIKE '"+world.getName() + "' AND region_name LIKE '" + regionName + "'");
+			while(rs.next()) {
+				double price = rs.getDouble("price");
+				String name = rs.getString("region_name");
+				String size = regions.getRegionSize(name, world);
+				tenant = rs.getString("tenant");
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return tenant;
+	}
 
 	public boolean addTenant(String regionName, String tenantName, double regionPrice, int numDays, World world) {
         try {

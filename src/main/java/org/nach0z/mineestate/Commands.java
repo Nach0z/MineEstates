@@ -12,7 +12,7 @@ public enum Commands {
 	SELL("SELL", 3),
 	SELLPUBLIC("SELLPUBLIC", 3),
 	LEASE("LEASE", 3),
-	RENT("RENT", 2),
+	RENT("RENT", 3),
 	EVICT("EVICT", 2),
 	LEAVE("LEAVE", 2),
 	CANCEL("CANCEL", 2);

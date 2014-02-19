@@ -10,6 +10,8 @@ public interface DBConnector {
 	public ArrayList<Listing> getForRent(World world);
 
 	public ArrayList<Listing> getTenants(World world);
+	
+	public String getTenantName(String regionName, World world);
 
 	public boolean addTenant(String regionName, String tenantName, double regionPrice, int numDays, World world);
 
@@ -30,5 +32,7 @@ public interface DBConnector {
 	public boolean isForRent(String regionName);
 
 	public int daysRemaining(String regionName, World world);
+	
+	
 
 }

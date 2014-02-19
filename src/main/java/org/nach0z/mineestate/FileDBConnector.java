@@ -47,6 +47,10 @@ public class FileDBConnector implements DBConnector {
 		return new ArrayList<Listing>();
 	}
 
+	public String getTenantName(String regionName, World world) {
+		return null;
+	}
+	
 	public boolean removeTenant(String regionName, World world) {
 		return true;
 	}
