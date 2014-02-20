@@ -137,6 +137,7 @@ public class EstateCommandExecutor implements CommandExecutor {
                         sender.sendMessage(prefix2 + "/estates search [sales|rents] <params> <sortparam>");
                         sender.sendMessage(prefix2 + "/estates cancel <regionname>");
                         sender.sendMessage(prefix2 + "/estates page <pagenumber>");
+                        sender.sendMessage(prefix2 + "/estates lease <regionname> <price>");
                         sender.sendMessage(prefix2 + "/estates rent <regionname> <days>");
                         sender.sendMessage(prefix2 + "/estates leave <regionname>");
                         sender.sendMessage(prefix2 + "/estates evict <regionname>");
