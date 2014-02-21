@@ -102,6 +102,27 @@ public class RegionFlagManager {
 		return (target != null);
     }
 
+    public boolean removeMember(String regionName, String member, World world) {
+    	ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
+    	String currentOwner = getOwnerName(regionName, world);
+    	boolean ret;
+    	if(currentOwner.equals("FAILED_MULTI"))
+    		return false;
+    	DefaultDomain newMembers = target.getMembers();
+    	newMembers.removePlayer(member);
+    	target.setMembers(newMembers);
+    	_plugin.WORLDGUARD.getGlobalRegionManager().get(world).removeRegion(regionName);
+		_plugin.WORLDGUARD.getGlobalRegionManager().get(world).addRegion(target);
+		try {
+			_plugin.WORLDGUARD.getGlobalRegionManager().get(world).save();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		ret = true;
+		return ret;
+    	
+    }
+    
 	public boolean addMember(String regionName, String member, World world) {
 		ProtectedRegion target = _plugin.WORLDGUARD.getGlobalRegionManager().get(world).getRegion(regionName);
 		String currentOwner = getOwnerName(regionName, world);
