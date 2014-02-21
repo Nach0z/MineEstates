@@ -48,10 +48,12 @@ public class RentCollector implements Runnable {
 					//release plot from tenant's control
 					System.out.println("TODO: Insufficient Funds");
 					_plugin.db.removeTenant(plot.name, plot.world);
+					rfm.removeMember(plot.name, plot.owner, plot.world);
 				} else if (dbc.daysRemaining(plot.name, plot.world) == 0) {
 					//release plot from tenant's control
 					System.out.println("TODO: Expired lease");
 					_plugin.db.removeTenant(plot.name, plot.world);
+					rfm.removeMember(plot.name, plot.owner, plot.world);
 				} else {
 					accounts.chargeMoney(plot.owner, plot.price);
 					accounts.addMoney(rfm.getOwnerName(plot.name, Bukkit.getWorld(plot.world.getName())), plot.price);
