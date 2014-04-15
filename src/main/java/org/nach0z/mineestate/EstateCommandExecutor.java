@@ -104,7 +104,7 @@ public class EstateCommandExecutor implements CommandExecutor {
             return true;
         }
         if(args.length > 1) {
-            if(regions.existsRegion(args[1],world) && _plugin.getDBConnector().isForSale(args[1])) {
+            if(regions.existsRegion(args[1],world) && (_plugin.getDBConnector().isForSale(args[1]) || _plugin.getDBConnector().isForRent(args[1]))) {
                 //World.getHighestBlockYAt(Location location)
                 //player.teleport(Location location)
                 Location loc = _plugin.getRegionFlagManager().getTPPos(args[1], world);
